@@ -56,7 +56,7 @@ function Search() {
           </button>
           <div className="collapse navbar-collapse d-flex justify-content-between align-items-center gap-2" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 gap-2">
-              <select  value={selectedZone} className="form-select form-select-default " aria-label="default select example" onChange={handleTimeZoneChange}>
+              <select value={selectedZone} className="form-select form-select-default " aria-label="default select example" onChange={handleTimeZoneChange}>
                 {
                   timeZone.map(tz=>(
                     <option key={tz._id} value={tz.ZoneName}>{tz.ZoneName}</option>

@@ -26,8 +26,8 @@ function Barlist({timezone,selectedDate,selectedZone}) {
     if (!isNaN(parsedDate.getTime())) {
       console.log(parsedDate);
         console.log(parsedDate.getTime());
-        const baseTime = parsedDate.setHours(0, 0, 0, 0);
-        // console.log(baseTime);
+        const baseTime = parsedDate.setUTCHours(0, 0, 0, 0);
+        console.log(baseTime);
         let timeline = [];
 
         for (let i = 0; i < 24; i++) {
@@ -45,7 +45,8 @@ function Barlist({timezone,selectedDate,selectedZone}) {
     const fetchTimeZones=async ()=>{
       try {
         console.log(timezone);
-        const foundZone=timezone.find(tz=>tz.ZoneName===selectedZone)
+        if(!selectedZone) selectedZone="IST";
+        const foundZone=timezone.find(tz=>tz.ZoneName===selectedZone);
         if(foundZone){
           console.log(foundZone);
           const [refHoursOffset,refMinutesOffset]=foundZone.Zone_offset.split(':').map(Number);
