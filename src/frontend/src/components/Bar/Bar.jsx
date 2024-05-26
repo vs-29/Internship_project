@@ -1,6 +1,12 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 
-function Bar({timezone}) {
+function Bar({timezone,timeline,selectedDate}) {
+  let [count,setcount]=useState(0);
+  // useEffect(()=>{
+  //      setcount(count++);
+  //      console.log(count);
+  //     console.log(timeline);
+  // })
   return (
     <div>
 <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -20,6 +26,15 @@ function Bar({timezone}) {
     </div>
   </div>
 </nav>
+<div class="container px-4 text-center">
+        <div class="row gx-5">
+            {/* {timeline.map((tz,i)=>{
+              <div class="col">
+              <div class="p-3">{timeline[i]}</div>
+              </div>
+            })}   */}
+        </div>
+      </div>
     </div>
   )
 }
