@@ -10,7 +10,7 @@ const adjustdatebyOffset=(date,offsetHours)=>{
 const formatTime=(date)=>{
   return date.toISOString().substring(11,16);
 }
-// starts here
+
 function Barlist({timezone,selectedDate,selectedZone}) {
   const [referenceoffset, setReferenceOffset] = useState(0);
   const [timeline,setTimeline]=useState([[]]);
@@ -33,7 +33,15 @@ function Barlist({timezone,selectedDate,selectedZone}) {
         for (let i = 0; i < 24; i++) {
 
             const localTime = adjustdatebyOffset(baseTime, offsetDifference + i);
+            const pattern=/^00:[0-5][0-9]$/
+           
+            if(pattern.test(formatTime(localTime))){
+              // console.log(formatTime(localTime));
+              localTimes.push(" "+selectedDate+": "+formatTime(localTime)+'  ');
+            }else{
+            //  console.log(formatTime(localTime));
             localTimes.push(formatTime(localTime)+'  ');
+            }
         }
         //  console.log(localTimes);
         //  setTimeline(localTimes);

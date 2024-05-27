@@ -7,6 +7,7 @@ import Barlist from '../../components/Barlist/Barlist'
 function Home() {
   return (
     <div>
+    <h3>YOUR TIME BUDDY</h3>
     <Search />
     </div>
   )
