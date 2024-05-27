@@ -24,8 +24,8 @@ function Barlist({timezone,selectedDate,selectedZone}) {
     const parsedDate = new Date(selectedDate);
 
     if (!isNaN(parsedDate.getTime())) {
-      // console.log(parsedDate);
-      //   console.log(parsedDate.getTime());
+        console.log(parsedDate);
+        console.log(parsedDate.getTime());
         const baseTime = parsedDate.setUTCHours(0, 0, 0, 0);
         // console.log(baseTime);
         let localTimes = [];
@@ -33,15 +33,8 @@ function Barlist({timezone,selectedDate,selectedZone}) {
         for (let i = 0; i < 24; i++) {
 
             const localTime = adjustdatebyOffset(baseTime, offsetDifference + i);
-            const pattern=/^00:[0-5][0-9]$/
            
-            if(pattern.test(formatTime(localTime))){
-              // console.log(formatTime(localTime));
-              localTimes.push(" "+selectedDate+": "+formatTime(localTime)+'  ');
-            }else{
-            //  console.log(formatTime(localTime));
-            localTimes.push(formatTime(localTime)+'  ');
-            }
+             localTimes.push(formatTime(localTime)+' ');
         }
         //  console.log(localTimes);
         //  setTimeline(localTimes);

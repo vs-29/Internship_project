@@ -17,6 +17,9 @@ function Bar({timezone,timeline,selectedDate}) {
         <li className="nav-brand">
           <a className="nav-link" href="/">{timezone.Zone_offset}</a>
         </li>
+        <li className="nav-brand">
+          <a className="nav-link" href="/">{selectedDate}</a>
+        </li>
         <div className="container px-3 text-center">
         <div className="row gx-6">
             <div className="col">
