@@ -1,12 +1,7 @@
 import React, { useState,useEffect } from 'react'
 
 function Bar({timezone,timeline,selectedDate}) {
-  let [count,setcount]=useState(0);
-  // useEffect(()=>{
-  //      setcount(count++);
-  //      console.log(count);
-  //     console.log(timeline);
-  // })
+  
   return (
     <div>
 <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -22,19 +17,18 @@ function Bar({timezone,timeline,selectedDate}) {
         <li className="nav-brand">
           <a className="nav-link" href="/">{timezone.Zone_offset}</a>
         </li>
+        <div className="container px-3 text-center">
+        <div className="row gx-6">
+            <div className="col">
+              <div className="p-2">{timeline}</div>
+            </div>     
+        </div>
+    </div>
       </ul>
     </div>
   </div>
 </nav>
-<div class="container px-4 text-center">
-        <div class="row gx-5">
-            {/* {timeline.map((tz,i)=>{
-              <div class="col">
-              <div class="p-3">{timeline[i]}</div>
-              </div>
-            })}   */}
-        </div>
-      </div>
+  
     </div>
   )
 }

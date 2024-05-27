@@ -13,7 +13,7 @@ const formatTime=(date)=>{
 // starts here
 function Barlist({timezone,selectedDate,selectedZone}) {
   const [referenceoffset, setReferenceOffset] = useState(0);
-  const [Timeline,setTimeline]=useState([]);
+  const [timeline,setTimeline]=useState([[]]);
 
   const calculateTimeline = (timeZone, referenceOffsetHours) => {
     const [hoursOffset, minuteOffset] = timeZone.Zone_offset.split(':').map(Number);
@@ -28,24 +28,24 @@ function Barlist({timezone,selectedDate,selectedZone}) {
       //   console.log(parsedDate.getTime());
         const baseTime = parsedDate.setUTCHours(0, 0, 0, 0);
         // console.log(baseTime);
-        let timeline = [];
+        let localTimes = [];
 
         for (let i = 0; i < 24; i++) {
 
             const localTime = adjustdatebyOffset(baseTime, offsetDifference + i);
-            timeline.push(formatTime(localTime));
+            localTimes.push(formatTime(localTime)+'  ');
         }
+        //  console.log(localTimes);
+        //  setTimeline(localTimes);
         //  console.log(timeline);
-        //  setTimeline(timeline);
-        //  console.log(Timeline);
-        return timeline ;
+        return localTimes ;
        } else {
         console.log("Invalid Date format", selectedDate);
         return [];
     }
 }
   useEffect(()=>{
-    const fetchTimeZones=async ()=>{
+    const fetchTimeZones= async()=>{
       try {
        
         if(!selectedZone) selectedZone="IST";
@@ -56,9 +56,9 @@ function Barlist({timezone,selectedDate,selectedZone}) {
           const referenceoffset=refHoursOffset+refMinutesOffset/60;
           setReferenceOffset(referenceoffset);
           // console.log(timezone);
-          const timelines=timezone.map((tz)=>{
-            calculateTimeline(tz,referenceoffset);
-          })
+          const timelines= await Promise.all(timezone.map((tz)=>{
+             return calculateTimeline(tz,referenceoffset);
+          }))
           console.log(timelines);
           setTimeline(timelines);
            
@@ -71,7 +71,7 @@ function Barlist({timezone,selectedDate,selectedZone}) {
     }
 
     fetchTimeZones();
-  },[timezone,selectedDate,Timeline]);
+  },[timezone,selectedDate]);
 
  
   return (
@@ -79,7 +79,7 @@ function Barlist({timezone,selectedDate,selectedZone}) {
       {
        timezone.map((tz,index)=>(
         <div key={tz._id}>
-          <Bar timezone={tz} timeline={Timeline[index]} selectedDate={selectedDate}/>
+          <Bar timezone={tz} timeline={timeline[index]} selectedDate={selectedDate}/>
         </div>
        ))
       }
