@@ -22,6 +22,24 @@ export const getTimeZone= async (req,res)=>{
 
 }
 
+export const deleteTimeZone=async(req,res)=>{
+  try{
+     await TimeZone.findByIdAndDelete(req.params.id);
+     res.status(200).json("TimeZone Deleted");
+  }catch(error){
+     res.status(500).json({message:error.message});
+  }
+}
+
+export const updateTimezone=async (req,res)=>{
+  try {
+    const updatedTimeZone=await TimeZone.findByIdAndUpdate(req.params.id,{$set:req.body},{new:true});
+    res.status(200).json("TimeZone updated Succesfully");
+  } catch (error) {
+    res.status(500).json({message:error.message});
+  }
+}
+
 
 
 

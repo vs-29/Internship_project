@@ -1,7 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import Bar from '../Bar/Bar'
 
-
 const adjustdatebyOffset=(date,offsetHours)=>{
   // console.log(date);
   return new Date(date+offsetHours*60*60*1000)
@@ -13,8 +12,8 @@ const formatTime=(date)=>{
 
 function Barlist({timezone,selectedDate,selectedZone}) {
   const [referenceoffset, setReferenceOffset] = useState(0);
-  const [timeline,setTimeline]=useState([[]]);
-
+  const [Timeline,setTimeline]=useState(null);
+  let count=0;
   const calculateTimeline = (timeZone, referenceOffsetHours) => {
     const [hoursOffset, minuteOffset] = timeZone.Zone_offset.split(':').map(Number);
     const totalOffsetHours = hoursOffset + minuteOffset / 60;
@@ -24,25 +23,29 @@ function Barlist({timezone,selectedDate,selectedZone}) {
     const parsedDate = new Date(selectedDate);
 
     if (!isNaN(parsedDate.getTime())) {
-        console.log(parsedDate);
-        console.log(parsedDate.getTime());
+        // console.log(parsedDate);
+        // console.log(parsedDate.getTime());
         const baseTime = parsedDate.setUTCHours(0, 0, 0, 0);
         // console.log(baseTime);
         let localTimes = [];
+        let localDates=[];
 
         for (let i = 0; i < 24; i++) {
 
             const localTime = adjustdatebyOffset(baseTime, offsetDifference + i);
-           
-             localTimes.push(formatTime(localTime)+' ');
+            const formattedTime=formatTime(localTime);
+            const currentDate=new Date(localTime);
+            //  console.log(localTime);
+            
+             localTimes.push(formattedTime+' ');
+             localDates.push(currentDate.toISOString().substring(0,10));
         }
-        //  console.log(localTimes);
-        //  setTimeline(localTimes);
-        //  console.log(timeline);
-        return localTimes ;
+        // console.log(localTimes);
+        // console.log(count++);
+        return {localTimes,localDates} ;
        } else {
         console.log("Invalid Date format", selectedDate);
-        return [];
+        return {localTimes:[],localDates:[]};
     }
 }
   useEffect(()=>{
@@ -61,8 +64,10 @@ function Barlist({timezone,selectedDate,selectedZone}) {
              return calculateTimeline(tz,referenceoffset);
           }))
           console.log(timelines);
+          console.log(timelines[0].localDates);
+          console.log(timelines[0].localTimes);
           setTimeline(timelines);
-           
+          console.log(Timeline);
         }else{
           console.log("cannot set offset hours");
         }
@@ -72,20 +77,33 @@ function Barlist({timezone,selectedDate,selectedZone}) {
     }
 
     fetchTimeZones();
-  },[timezone,selectedDate]);
-
+  },[referenceoffset]);
+  
+  const reorder=timezone.slice().sort((a,b)=>{
+    if(a.ZoneName==selectedZone) return -1;
+    if(b.ZoneName==selectedZone)return 1;
+    return 0;
+  })
  
+  if (Timeline === null) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
-      {
-       timezone.map((tz,index)=>(
-        <div key={tz._id}>
-          <Bar timezone={tz} timeline={timeline[index]} selectedDate={selectedDate}/>
-        </div>
-       ))
-      }
+      
+              {
+              reorder.map((tz,index)=>(
+              <div key={tz._id}>
+                <Bar timezone={tz}  localTimes={Timeline[index].localTimes} localDates={Timeline[index].localDates} selectedZone={selectedZone}/>
+              </div>
+              ))
+              }
+             
     </div>
   )
 }
 
 export default Barlist
+
+
+

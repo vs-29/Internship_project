@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Custom from './pages/custom/Custom';
 import Home from './pages/Home/Home';
+import Updatepage from './pages/Updatepage/Updatepage';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
      <Routes>
       <Route path='/' element={<Home/>}/>
       <Route path='/custom' element={<Custom/>}/>
+      <Route path='/update' element={<Updatepage/>}/>
      </Routes>
      </BrowserRouter>
     </>

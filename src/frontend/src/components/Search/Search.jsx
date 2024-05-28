@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import axiosInstance from '../../hooks/api';
 import { useNavigate } from 'react-router-dom';
 import Barlist from '../Barlist/Barlist';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 function Search() {
   const [date, setDate] = useState(new Date());
@@ -74,6 +75,28 @@ function Search() {
                 onChange={HandleDate}
               />
               <button className="btn btn-outline-success" type="submit" onClick={HandleSubmit}>Search</button>
+              <div className="More_options">
+                  <p className="d-inline-flex gap-1">
+                    <button className="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                     icon
+                    </button>
+                  </p>
+                  <div className="collapse" id="collapseExample">
+                    <div className="card card-body">
+                        <ul className="nav justify-content-center">
+                          <li className="nav-item">
+                            <a className="nav-link active" href="">Add TimeZone</a>
+                          </li>
+                          <li className="nav-item">
+                            <a className="nav-link" href=" ">Update TimeZone</a>
+                          </li>
+                          <li className="nav-item">
+                            <a className="nav-link" href=" ">Delete TimeZone</a>
+                          </li>
+                        </ul> 
+                    </div>
+                  </div>
+              </div>
             </div>
           </div>
         </div>
