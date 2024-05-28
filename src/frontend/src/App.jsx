@@ -5,9 +5,11 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import Custom from './pages/custom/Custom';
+;
 import Home from './pages/Home/Home';
-import Updatepage from './pages/Updatepage/Updatepage';
+import DeleteZone from './pages/DeleteZon/DeleteZone';
+import AddZone from './pages/AddZone/AddZone';
+import UpdateZone from './pages/UpdateZone/UpdateZone';
 
 
 function App() {
@@ -17,8 +19,9 @@ function App() {
      <BrowserRouter>
      <Routes>
       <Route path='/' element={<Home/>}/>
-      <Route path='/custom' element={<Custom/>}/>
-      <Route path='/update' element={<Updatepage/>}/>
+      <Route path='/addZone' element={<AddZone/>}/>
+      <Route path='/updateZone' element={<UpdateZone/>}/>
+      <Route path='/deleteZone' element={<DeleteZone/>}/>
      </Routes>
      </BrowserRouter>
     </>

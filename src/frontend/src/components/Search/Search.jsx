@@ -3,6 +3,8 @@ import Form from 'react-bootstrap/Form';
 import axiosInstance from '../../hooks/api';
 import { useNavigate } from 'react-router-dom';
 import Barlist from '../Barlist/Barlist';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 
 
 function Search() {
@@ -11,15 +13,12 @@ function Search() {
   const [selectedZone,setSelectedZone]=useState("");
   const [isSubmitted,setIsSubmitted]=useState(false);
   
-  const navigate=useNavigate();
+
 
 
 
   const handleTimeZoneChange=(e)=>{
     setSelectedZone(e.target.value);
-    if(e.target.value==='custom'){
-      navigate(`/custom`);
-    }
   }
 
   useEffect(()=>{
@@ -51,18 +50,24 @@ function Search() {
     <div>
       <nav className="navbar navbar-expand bg-body-tertiary">
         <div className="container-fluid">
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
           <div className="collapse navbar-collapse d-flex justify-content-between align-items-center gap-2" style={{padding:"0.5rem",marginBottom:"7px"}}id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0 gap-2">
+            <div className="dropdown">
+              <button className="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <FontAwesomeIcon icon={faEllipsisVertical} />
+              </button>
+              <ul className="dropdown-menu">
+                <li><a className="dropdown-item" href="/addZone">Add Zone</a></li>
+                <li><a className="dropdown-item" href="/">Update Zone</a></li>
+                <li><a className="dropdown-item" href="/">Delete Zone</a></li>
+              </ul>
+            </div>
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0 gap-3">
               <select value={selectedZone} className="form-select form-select-default " aria-label="default select example" onChange={handleTimeZoneChange}>
                 {
                   timeZone.map(tz=>(
                     <option key={tz._id} value={tz.ZoneName}>{tz.ZoneName}</option>
                   ))
                 }
-               <option value="custom" >Custom</option>
               </select>
             </ul> 
             <div className="d-flex gap-2">
@@ -84,3 +89,4 @@ function Search() {
 }
 
 export default Search;
+

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axiosInstance from '../../hooks/api'
 import { useNavigate } from 'react-router-dom';
 
-const Custom = () => {
+const AddZone = () => {
     const [data,setData]=useState({
         ZoneName:undefined,
         Zone_offset:undefined,
@@ -68,4 +68,4 @@ const Custom = () => {
   )
 }
 
-export default Custom
+export default AddZone
