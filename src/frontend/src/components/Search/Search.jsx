@@ -17,7 +17,6 @@ function Search() {
 
   const handleTimeZoneChange=(e)=>{
     setSelectedZone(e.target.value);
-   
     if(e.target.value==='custom'){
       navigate(`/custom`);
     }
@@ -50,7 +49,7 @@ function Search() {
   }
   return (
     <div>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <nav className="navbar navbar-expand bg-body-tertiary">
         <div className="container-fluid">
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>

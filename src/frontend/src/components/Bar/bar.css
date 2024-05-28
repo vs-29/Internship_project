@@ -1,3 +1,16 @@
 .fixed-width{
-    width:3.4rem;
+    width:2.5rem;
+}
+
+.table{
+    max-width:100%;
+}
+
+@media (max-width: 768px){
+    .table{
+        max-width:100%;
+    }
+    .fixed-width{
+        width:1.5rem;
+    }
 }

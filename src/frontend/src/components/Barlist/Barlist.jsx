@@ -13,11 +13,13 @@ const formatTime=(date)=>{
 function Barlist({timezone,selectedDate,selectedZone}) {
   const [referenceoffset, setReferenceOffset] = useState(0);
   const [Timeline,setTimeline]=useState(null);
+  const [ReorderedZone,setReorderedZone]=useState(null);
+  
   let count=0;
   const calculateTimeline = (timeZone, referenceOffsetHours) => {
     const [hoursOffset, minuteOffset] = timeZone.Zone_offset.split(':').map(Number);
     const totalOffsetHours = hoursOffset + minuteOffset / 60;
-
+     
     const offsetDifference = totalOffsetHours - referenceOffsetHours;
 
     const parsedDate = new Date(selectedDate);
@@ -60,7 +62,13 @@ function Barlist({timezone,selectedDate,selectedZone}) {
           const referenceoffset=refHoursOffset+refMinutesOffset/60;
           setReferenceOffset(referenceoffset);
           // console.log(timezone);
-          const timelines= await Promise.all(timezone.map((tz)=>{
+          const reorder=timezone.slice().sort((a,b)=>{
+            if(a.ZoneName==selectedZone) return -1;
+            if(b.ZoneName==selectedZone)return 1;
+            return 0;
+          })
+          setReorderedZone(reorder)
+          const timelines= await Promise.all(reorder.map((tz)=>{
              return calculateTimeline(tz,referenceoffset);
           }))
           console.log(timelines);
@@ -79,20 +87,17 @@ function Barlist({timezone,selectedDate,selectedZone}) {
     fetchTimeZones();
   },[referenceoffset]);
   
-  const reorder=timezone.slice().sort((a,b)=>{
-    if(a.ZoneName==selectedZone) return -1;
-    if(b.ZoneName==selectedZone)return 1;
-    return 0;
-  })
+
+
+
  
   if (Timeline === null) {
     return <div>Loading...</div>;
   }
   return (
     <div>
-      
               {
-              reorder.map((tz,index)=>(
+              ReorderedZone.map((tz,index)=>(
               <div key={tz._id}>
                 <Bar timezone={tz}  localTimes={Timeline[index].localTimes} localDates={Timeline[index].localDates} selectedZone={selectedZone}/>
               </div>
