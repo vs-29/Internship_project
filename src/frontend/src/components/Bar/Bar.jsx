@@ -6,9 +6,6 @@ function formateDate(date)
 {
  console.log(date);
  const[year,month,day]=date.split('-');
-//  console.log(year);
-//  console.log(month);
-//  console.log(day);
  const monthNames=[" ","Jan","Feb","March","april","may","june","july","august","sept","oct","Nov","Dec"];
  const formattedMonth=monthNames[parseInt(month)];
 //  console.log(formattedMonth);
@@ -44,14 +41,15 @@ function Bar({timezone,localTimes,localDates,selectedZone}) {
             <td> <div className="fixed-width">{timezone.Zone_offset}</div></td>
             <td><div className="fixed-width">{dates.length >= 2 ? `${dates[0]} - ${dates[1]}` : dates[0]}</div></td>
             <td>
-              <tr>
-              {  
-               localTimes.map((tz,index)=>(
-                  <td>{localTimes[index]} </td>
+              <table className="table  table-striped table-bordered align-middle">
+                <tbody>
+                  <tr>  {  
+                 localTimes.map((tz,index)=>(
+                  <td> {localTimes[index]}</td>
                 ))
-              }
-              </tr>
-             
+              }</tr>
+                </tbody>
+              </table>
             </td>
           </tr>
         </tbody>

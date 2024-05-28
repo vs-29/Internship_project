@@ -1,3 +1,7 @@
-:fixed-width{
-    width:150px;
+.fixed-width{
+    width:3rem;
+}
+.bordered-text{
+    border:1px solid #484646;
+    padding:0.1rem;
 }
