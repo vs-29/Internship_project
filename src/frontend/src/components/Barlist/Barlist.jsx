@@ -85,11 +85,8 @@ function Barlist({timezone,selectedDate,selectedZone}) {
     }
 
     fetchTimeZones();
-  },[referenceoffset]);
+  },[referenceoffset,selectedZone,selectedDate]);
   
-
-
-
  
   if (Timeline === null) {
     return <div>Loading...</div>;

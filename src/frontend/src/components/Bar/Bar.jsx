@@ -30,11 +30,11 @@ function Bar({timezone,localTimes,localDates,selectedZone}) {
      setDates(dates);
     }
     fetch();
-   },[])
+   },[localDates])
 
 
   return (
-  <div className=' table-responsive{-sm}'>
+  <div className=' table-responsive'>
       <table className="table table-striped table-bordered align-middle">
         <tbody>
           <tr> 
