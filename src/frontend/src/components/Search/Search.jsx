@@ -57,8 +57,8 @@ function Search() {
               </button>
               <ul className="dropdown-menu">
                 <li><a className="dropdown-item" href="/addZone">Add Zone</a></li>
-                <li><a className="dropdown-item" href="/">Update Zone</a></li>
-                <li><a className="dropdown-item" href="/">Delete Zone</a></li>
+                <li><a className="dropdown-item" href="/updateZone">Update Zone</a></li>
+                <li><a className="dropdown-item" href="/deleteZone">Delete Zone</a></li>
               </ul>
             </div>
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 gap-3">

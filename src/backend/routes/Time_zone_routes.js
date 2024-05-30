@@ -7,6 +7,6 @@ const router=express.Router();
 router.post('/timezone',addTimeZone);
 router.get('/timezone',getTimeZone);
 router.delete('/timezone/:id',deleteTimeZone);
-router.put('/timezone/:id',updateTimezone)
+router.put('/timezone/:id',updateTimezone);
 
 export default router;

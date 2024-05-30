@@ -14,7 +14,7 @@ const AddZone = () => {
         setData({...data,[e.target.name]:e.target.value})
     }
     const ValidateUTC=(input)=>{
-        const pattern=/^([+-]) (0[0-9]|1[0-2]):?([0-5][0-9])$/;
+        const pattern=/^([+]|[-]) (0[0-9]|1[0-2]):?([0-5][0-9])$/;
         if(pattern.test(input))
             {
                 const sign=input[0];
@@ -24,7 +24,7 @@ const AddZone = () => {
                 const totaloffset=hour*60+min;
 
                 if(sign==='+' && totaloffset<=14*60)return true;
-                if(sign==='-' && totaloffset<=12*60)return true;
+                else if(sign==='-' && totaloffset<=12*60)return true;
             }else
             {
                 return false;
@@ -53,13 +53,13 @@ const AddZone = () => {
         <div className="row mb-4">
             <label htmlFor="name" className="col-sm-3 col-form-label" >ZoneName:</label>
             <div className="col-sm-10">
-            <input type="text" name="ZoneName" className="form-control"onChange={HandleChange}/>
+            <input type="text" name="ZoneName" className="form-control"onChange={HandleChange} placeholder='Enter in Capital Letters'/>
             </div>
         </div>
         <div className="row mb-3">
             <label htmlFor="Offset" className="col-sm-3 col-form-label">Zone_Offset:</label>
             <div className="col-sm-10">
-            <input type="text" name="Zone_offset" className="form-control" onChange={HandleChange}/>
+            <input type="text" name="Zone_offset" className="form-control" onChange={HandleChange} placeholder='[+-] HH:MM'/>
             </div>
         </div>
         <button type="submit" className="btn btn-primary col-sm-7" onClick={HandleClick} >Submit</button>

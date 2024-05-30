@@ -33,8 +33,9 @@ export const deleteTimeZone=async(req,res)=>{
 
 export const updateTimezone=async (req,res)=>{
   try {
+   
     const updatedTimeZone=await TimeZone.findByIdAndUpdate(req.params.id,{$set:req.body},{new:true});
-    res.status(200).json("TimeZone updated Succesfully");
+    res.status(200).json(updatedTimeZone);
   } catch (error) {
     res.status(500).json({message:error.message});
   }
