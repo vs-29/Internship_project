@@ -7,7 +7,7 @@ import NavBar from '../../components/NavBar/NavBar'
 
 function Home() {
   return (
-    <div>
+    <div className='container' >
         <NavBar/>
         <div className="Search_container">
         <h3>YOUR TIME BUDDY</h3>

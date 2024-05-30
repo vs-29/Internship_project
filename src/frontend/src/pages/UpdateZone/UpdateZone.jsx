@@ -93,7 +93,8 @@ const UpdateZone = () => {
       fetchTimeZones();
     },[selectedZone]);
   return (
-    <div className="container border p-5 shadow">
+    <div className="container ">
+      <div className='border p-5 shadow'>
       <div className="form-group '">
         <label className="form-label" htmlFor="formGroupExampleInput">Select the Time that needs Update</label>
         <select value={selectedZone} className="form-select form-select-default " aria-label="default select example" onChange={handleTimeZoneChange}>
@@ -115,6 +116,7 @@ const UpdateZone = () => {
           <button type="submit" className="btn btn-primary btn-submit" onClick={HandleUpdate}>Submit</button>
         </form>
        )}
+       </div>
     </div>
   )
 }

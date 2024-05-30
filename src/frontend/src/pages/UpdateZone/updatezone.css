@@ -1,6 +1,9 @@
 .container {
-  margin: 50px auto;
-  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height:100vh;
 }
 
 .form-group {

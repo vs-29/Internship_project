@@ -46,8 +46,8 @@ const DeleteZone = () => {
         fetchTimeZones();
       },[selectedZone]);
   return (
-    <div className='container border p-5 shadow'>
-         <div className="mb-3">
+    <div className='container'>
+         <div className="mb-3 border p-5 shadow">
          <label for="formGroupExampleInput" class="form-label">Select TimeZone To be Deleted</label>
          <ul className="navbar-nav me-auto mb-2 mb-lg-0 gap-2">
               <select value={selectedZone} className="form-select form-select-default " aria-label="default select example" onChange={handleTimeZoneChange}>
