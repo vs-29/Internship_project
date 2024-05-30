@@ -20,7 +20,7 @@ const UpdateZone = () => {
   }
 
   const ValidateUTC=(input)=>{
-    const pattern=/^([+-]) (0[0-9]|1[0-2]):?([0-5][0-9])$/;
+    const pattern=/^([+-])([0-9]|1[0-2]):?([0-5][0-9])$/;
     if(pattern.test(input))
         {
             const sign=input[0];
@@ -29,8 +29,7 @@ const UpdateZone = () => {
 
             const totaloffset=hour*60+min;
 
-            if(sign==='+' && totaloffset<=14*60)return true;
-            if(sign==='-' && totaloffset<=12*60)return true;
+            if(sign==='+' && totaloffset<=14*60 || sign==='-' && totaloffset<=12*60)return true;
         }else
         {
             return false;
@@ -39,28 +38,43 @@ const UpdateZone = () => {
 
   const HandleUpdate=async(e)=>{
       e.preventDefault();
-      if(!data.ZoneName)
-        {
-            alert("Please input ZoneName!!");
-            return;
-        }
-       if(!data.Zone_offset || ValidateUTC(data.Zone_offset))
-        {
-            alert("Please Input Valid Zone_offset!!");
-            return;
-        } 
+    
       try {
-        const foundZone=timeZone.find(tz=>tz.ZoneName===selectedZone);
-        // console.log(foundZone)
-        const updatedZone = { ...foundZone, ...data };
-        console.log(updatedZone._id);
-          const response=await axiosInstance.put(`/api/timezone/${updatedZone._id}`,data);
-          console.log(response.data);
-          alert("TimeZone Updated Successfully!");
-          navigate("/");
-      } catch (error) {
-          console.log({message:error.message});
-      }
+        if(!data.ZoneName)
+            {
+                alert("Please input ZoneName!!");
+                return;
+            }else if(data.ZoneName!=data.ZoneName.toUpperCase())
+            {
+               alert("Please Input in capital letters");
+               return;
+            }
+            console.log(ValidateUTC(data.Zone_offset));
+           if(!data.Zone_offset || !ValidateUTC(data.Zone_offset))
+            {
+                alert("Please Input Valid Format (eg.+05:30 or -8:00)")
+                return;
+            }
+            const duplicateZone=timeZone.find((zone)=>
+            zone.ZoneName===data.ZoneName && zone.Zone_offset===data.Zone_offset
+            );
+
+           if(duplicateZone)
+          {
+            alert('Zone already Exists with same Name and offset');
+            return;
+          }
+              const foundZone=timeZone.find(tz=>tz.ZoneName===selectedZone);
+              // console.log(foundZone)
+              const updatedZone = { ...foundZone, ...data };
+              console.log(updatedZone._id);
+                const response=await axiosInstance.put(`/api/timezone/${updatedZone._id}`,data);
+                console.log(response.data);
+                alert("TimeZone Updated Successfully!");
+                navigate("/");
+            } catch (error) {
+                console.log({message:error.message});
+            }
   }
   const HandleChange=(e)=>{
     setData({...data,[e.target.name]:e.target.value})

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axiosInstance from '../../hooks/api'
 import { useNavigate } from 'react-router-dom';
 
@@ -6,7 +6,8 @@ const AddZone = () => {
     const [data,setData]=useState({
         ZoneName:undefined,
         Zone_offset:undefined,
-    })
+    });
+    const [timeZone,setTimeZone]=useState([]);
 
     const navigate=useNavigate();
 
@@ -14,17 +15,17 @@ const AddZone = () => {
         setData({...data,[e.target.name]:e.target.value})
     }
     const ValidateUTC=(input)=>{
-        const pattern=/^([+]|[-]) (0[0-9]|1[0-2]):?([0-5][0-9])$/;
+        const pattern = /^[+-]([0-9]|1[0-2]):?([0-5][0-9])$/;
+        console.log(pattern.test(input));
         if(pattern.test(input))
             {
                 const sign=input[0];
                 const hour=parseInt(input.slice(1,3),10);
                 const min=parseInt(input.slice(-2),10);
-
+                  
                 const totaloffset=hour*60+min;
 
-                if(sign==='+' && totaloffset<=14*60)return true;
-                else if(sign==='-' && totaloffset<=12*60)return true;
+                if(sign==='+' && totaloffset<=(14*60) || sign==='-' && totaloffset<=(12*60))return true;
             }else
             {
                 return false;
@@ -32,21 +33,55 @@ const AddZone = () => {
     }
     const HandleClick=async (e)=>{
       e.preventDefault();
-      
-      if(!data.ZoneName)
-        {
-            alert("Please input ZoneName!!");
-            return;
-        }
-       if(!data.Zone_offset || ValidateUTC(data.Zone_offset))
-        {
-            alert("Please Input Valid Zone_offset!!");
-            return;
-        } 
+     
+    
+        try{
+            console.log(data.ZoneName);
+            console.log(data.Zone_offset);
+            if(!data.ZoneName)
+                {
+                    alert("Please input ZoneName!!");
+                    return;
+                }else if(data.ZoneName!=data.ZoneName.toUpperCase())
+                {
+                   alert("Please Input in capital letters");
+                   return;
+                }
+                console.log(ValidateUTC(data.Zone_offset));
+               if(!data.Zone_offset || !ValidateUTC(data.Zone_offset))
+                {
+                    alert("Please Input Valid Format (eg.+05:30 or -8:00)")
+                    return;
+                }
+                const duplicateZone=timeZone.find((zone)=>
+                zone.ZoneName===data.ZoneName && zone.Zone_offset===data.Zone_offset
+         );
+
+         if(duplicateZone)
+            {
+                alert('Zone already Exists with same Name and offset');
+                return;
+            }
         await axiosInstance.post("/api/timezone",data);
         alert("TimeZone added successfully!");
         navigate('/');
+        }catch(error){
+            console.error('Error adding timeZone',error.message);
+            alert('An error occured while adding the timeZone.Please try again later');
+        }
     }
+    useEffect(()=>{
+        const fetchTimeZones=async ()=>{
+          try {
+            const response=await axiosInstance.get('./api/timeZone');
+            setTimeZone(response.data);    
+          } catch (error) {
+            console.log(error);
+          }
+        }
+    
+        fetchTimeZones();
+      },[]);
   return (
     <div>
         <form>
