@@ -93,41 +93,33 @@ const UpdateZone = () => {
       fetchTimeZones();
     },[selectedZone]);
   return (
-    <div >
-      <div className="mb-3">
-         <label for="formGroupExampleInput" class="form-label">Select the Time thats needs Update</label>
-         <ul className="navbar-nav me-auto mb-2 mb-lg-0 gap-2">
-              <select value={selectedZone} className="form-select form-select-default " aria-label="default select example" onChange={handleTimeZoneChange}>
-                {
-                  timeZone.map(tz=>(
-                    <option key={tz._id} value={tz.ZoneName}>{tz.ZoneName}</option>
-                  ))
-                }
-              </select>
-        </ul> 
-        {
-            isSelected ?
-            <>
-                <form >
-                <div className="row mb-4 update-zone-container">
-                    <label htmlFor="name" className="col-sm-3 col-form-label" >UpdatedZoneName:</label>
-                    <div className="col-sm-10">
-                    <input type="text" name="ZoneName" className="form-control"onChange={HandleChange} placeholder='Enter in Capital Letters'/>
-                    </div>
-                </div>
-                <div className="row mb-3 update-zone-container">
-                    <label htmlFor="Offset" className="col-sm-3 col-form-label">UpdatedZone_Offset:</label>
-                    <div className="col-sm-10">
-                    <input type="text" name="Zone_offset" className="form-control" onChange={HandleChange} placeholder='[+-] HH:MM'/>
-                    </div>
-                </div>
-                <button type="submit" className="btn btn-primary col-sm-7" onClick={HandleUpdate}  >Submit</button>
-                </form>
-            </> :<div></div>
-        }
-      </div>   
+    <div className="container border p-5 shadow">
+      <div className="form-group '">
+        <label className="form-label" htmlFor="formGroupExampleInput">Select the Time that needs Update</label>
+        <select value={selectedZone} className="form-select form-select-default " aria-label="default select example" onChange={handleTimeZoneChange}>
+          {timeZone.map((tz) => (
+            <option key={tz._id} value={tz.ZoneName}>{tz.ZoneName}</option>
+          ))}
+        </select>
+      </div>
+      {isSelected && (
+        <form>
+          <div className="form-group">
+            <label className="form-label" htmlFor="name">Updated Zone Name:</label>
+            <input type="text" name="ZoneName" className="form-control" onChange={HandleChange} placeholder="Enter in Capital Letters" />
+          </div>
+          <div className="form-group">
+            <label className="form-label" htmlFor="Offset">Updated Zone Offset:</label>
+            <input type="text" name="Zone_offset" className="form-control" onChange={HandleChange} placeholder="[+-] HH:MM" />
+          </div>
+          <button type="submit" className="btn btn-primary btn-submit" onClick={HandleUpdate}>Submit</button>
+        </form>
+       )}
     </div>
   )
 }
 
 export default UpdateZone
+
+
+    

@@ -1,0 +1,12 @@
+.form-container {
+    margin: 20px auto; 
+    max-width: 500px; 
+}
+.border {
+    border: 1px solid #ced4da; 
+    border-radius: 0.25rem; 
+}
+
+.shadow {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); 
+}

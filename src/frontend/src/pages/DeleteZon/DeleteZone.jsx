@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import axiosInstance from '../../hooks/api';
 import { useNavigate } from 'react-router-dom';
+import "./deletezone.css"
 const DeleteZone = () => {
     const [timeZone,setTimeZone]=useState([]);
     const [selectedZone,setSelectedZone]=useState("");
@@ -57,7 +58,7 @@ const DeleteZone = () => {
                 }
               </select>
         </ul> 
-        <button className="btn btn-danger" onClick={HandleDelete}>Delete</button>
+        <button className="btn btn-danger deleted" onClick={HandleDelete}>Delete</button>
       </div>  
     </div>
   )

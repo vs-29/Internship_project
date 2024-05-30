@@ -1,8 +1,32 @@
-/* .update-zone-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  } */
+.container {
+  margin: 50px auto;
+  max-width: 600px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  font-weight:400;
+}
+
+.form-control {
+  width: 100%;
+}
+
+.btn-submit {
+  margin-top: 20px;
+}
+
+.border {
+  border: 1px solid #ced4da; 
+  border-radius: 0.25rem; 
+}
+
+.shadow {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); 
+}
   
 
   

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axiosInstance from '../../hooks/api'
 import { useNavigate } from 'react-router-dom';
-
+import './addzone.css';
 const AddZone = () => {
     const [data,setData]=useState({
         ZoneName:undefined,
@@ -83,21 +83,23 @@ const AddZone = () => {
         fetchTimeZones();
       },[]);
   return (
-    <div>
-        <form>
-        <div className="row mb-4">
-            <label htmlFor="name" className="col-sm-3 col-form-label" >ZoneName:</label>
-            <div className="col-sm-10">
-            <input type="text" name="ZoneName" className="form-control"onChange={HandleChange} placeholder='Enter in Capital Letters'/>
+    <div className='form-container'>
+        <form className='border p-5 shadow'>
+            <div className="row mb-4 justify-content-center">
+                <label htmlFor="name" className="col-sm-4 col-form-label " >ZoneName:</label>
+                <div className="col-sm-10 " >
+                <input type="text" name="ZoneName" className="form-control"onChange={HandleChange} placeholder='Enter in Capital Letters'/>
+                </div>
             </div>
-        </div>
-        <div className="row mb-3">
-            <label htmlFor="Offset" className="col-sm-3 col-form-label">Zone_Offset:</label>
-            <div className="col-sm-10">
-            <input type="text" name="Zone_offset" className="form-control" onChange={HandleChange} placeholder='[+-] HH:MM'/>
+            <div className="row mb-3 justify-content-center">
+                <label htmlFor="Offset" className="col-sm-4 col-form-label ">Zone_Offset:</label>
+                <div className="col-sm-10 ">
+                <input type="text" name="Zone_offset" className="form-control" onChange={HandleChange} placeholder='[+-] HH:MM'/>
+                </div>
             </div>
-        </div>
-        <button type="submit" className="btn btn-primary col-sm-7" onClick={HandleClick} >Submit</button>
+            <div className=" justify-content-center mb-1">
+            <button type="submit" className="btn btn-primary col-sm-7" onClick={HandleClick} >Submit</button>
+            </div>
         </form>
     </div>
   )
