@@ -9,19 +9,21 @@ export const register=async(req,res,next)=>{
         var salt=bcrypt.genSaltSync(10);
         var hash=bcrypt.hashSync(req.body.password,salt);
 
-        const normalizedFullName = req.body.fullname.replace(/\s+/g, ' ').toLowerCase(); 
+        const normalizedFullName = req.body.fullname.replace(/\s+/g, ' ').trim().toLowerCase(); 
         const existingUser=await User.findOne({ fullname:normalizedFullName });
 
         if(existingUser)
         {
-         return res.status(400).json({error:'Full Name Already exist'});
+         return res.status(400).json({error:'User Already exist'});
         }
         const newUser=new User({
+            
            fullname: normalizedFullName ,
            password: hash,
+           isAdmin:req.body.isAdmin,
         })
         await newUser.save();
-        res.status(201).send(newUser);
+        res.status(201).json(newUser);
     }catch(error){
         next(error);
     }
@@ -29,10 +31,11 @@ export const register=async(req,res,next)=>{
 
 export const login=async(req,res,next)=>{
     try {
-     const normalizedFullName = req.body.fullname.replace(/\s+/g, ' ').toLowerCase();
+     const normalizedFullName = req.body.fullname.replace(/\s+/g, ' ').trim().toLowerCase();
      const user=await User.findOne({ fullname: normalizedFullName });
-     if(!user)return(createError(404,"User not found!"));
-
+     if(!user){
+        return next(createError(404,"User not found!"));
+     }
      const isPasswordCorrect= await bcrypt.compare(req.body.password,user.password);
      if(!isPasswordCorrect)return next(createError(400,"Wrong Password or UserName!"));
 
