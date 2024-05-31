@@ -17,7 +17,7 @@ const DeleteZone = () => {
     const HandleDelete=async(req,res)=>{
         try {
             const foundZone=timeZone.find(tz=>tz.ZoneName===selectedZone);
-            const deletedZone=await axiosInstance.delete(`/api/timezone/${foundZone._id}`);
+            const deletedZone=await axiosInstance.delete(`/timezone/${foundZone._id}`);
             console.log(deletedZone);
             alert("TimeZone deleted Successfully!");
             navigate("/");
@@ -32,7 +32,7 @@ const DeleteZone = () => {
     useEffect(()=>{
         const fetchTimeZones=async ()=>{
           try {
-            const response=await axiosInstance.get('./api/timeZone');
+            const response=await axiosInstance.get('./timeZone');
             // console.log("response is:\n");
             setTimeZone(response.data);
             // console.log(timeZone);

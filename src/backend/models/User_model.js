@@ -1,8 +1,7 @@
 import mongoose,{Schema} from "mongoose";
-import aggregatePaginate from "mongoose-agregate-paginate-v2";
 
 const UserSchema= new Schema({
- username:{
+ fullname:{
     type:String,
     required:true,
     unique:true,
@@ -19,7 +18,7 @@ const UserSchema= new Schema({
 },{timestamps:true})
 
 
-UserSchema.plugin(aggregatePaginate);
+
 
 
 export const User=mongoose.model("User",UserSchema);

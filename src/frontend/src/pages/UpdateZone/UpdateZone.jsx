@@ -68,7 +68,7 @@ const UpdateZone = () => {
               // console.log(foundZone)
               const updatedZone = { ...foundZone, ...data };
               console.log(updatedZone._id);
-                const response=await axiosInstance.put(`/api/timezone/${updatedZone._id}`,data);
+                const response=await axiosInstance.put(`/timezone/${updatedZone._id}`,data);
                 console.log(response.data);
                 alert("TimeZone Updated Successfully!");
                 navigate("/");
@@ -83,7 +83,7 @@ const UpdateZone = () => {
   useEffect(()=>{
       const fetchTimeZones=async ()=>{
         try {
-          const response=await axiosInstance.get('./api/timeZone');
+          const response=await axiosInstance.get('./timeZone');
           setTimeZone(response.data);    
         } catch (error) {
           console.log(error);

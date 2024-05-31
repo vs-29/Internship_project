@@ -4,9 +4,12 @@ import { addTimeZone,getTimeZone ,deleteTimeZone,updateTimezone} from "../contro
 
 const router=express.Router();
 
-router.post('/timezone',addTimeZone);
-router.get('/timezone',getTimeZone);
-router.delete('/timezone/:id',deleteTimeZone);
-router.put('/timezone/:id',updateTimezone);
+
+router.post('/',addTimeZone);
+router.get('/',getTimeZone);
+router.delete('/:id',deleteTimeZone);
+router.put('/:id',updateTimezone);
+
+
 
 export default router;

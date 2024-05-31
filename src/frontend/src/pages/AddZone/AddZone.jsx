@@ -62,7 +62,7 @@ const AddZone = () => {
                 alert('Zone already Exists with same Name and offset');
                 return;
             }
-        await axiosInstance.post("/api/timezone",data);
+        await axiosInstance.post("/timezone",data);
         alert("TimeZone added successfully!");
         navigate('/');
         }catch(error){
@@ -73,7 +73,7 @@ const AddZone = () => {
     useEffect(()=>{
         const fetchTimeZones=async ()=>{
           try {
-            const response=await axiosInstance.get('./api/timeZone');
+            const response=await axiosInstance.get('./timeZone');
             setTimeZone(response.data);    
           } catch (error) {
             console.log(error);

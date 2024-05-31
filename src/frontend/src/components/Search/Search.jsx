@@ -24,7 +24,7 @@ function Search() {
   useEffect(()=>{
     const fetchTimeZones=async ()=>{
       try {
-        const response=await axiosInstance.get('./api/timeZone');
+        const response=await axiosInstance.get('./timeZone');
         // console.log("response is:\n");
         setTimeZone(response.data);
         // console.log(timeZone);
