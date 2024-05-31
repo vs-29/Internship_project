@@ -1,16 +1,27 @@
-.fixed-width{
-    width:2.5rem;
-}
+.table-container {
+    overflow-x: auto; 
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th,
+  .table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd; 
+  }
+  
+  .fixed-width {
+    width: 2.5rem;
+  }
+  
+ 
+  
 
-.table{
-    max-width:100%;
-}
 
-@media (max-width: 768px){
-    .table{
-        max-width:100%;
-    }
-    .fixed-width{
-        width:1.5rem;
-    }
-}
+  
+
+

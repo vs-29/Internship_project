@@ -17,9 +17,6 @@ function Bar({timezone,localTimes,localDates,selectedZone}) {
    const uniqueDates=[...new Set(localDates)];
    const [dates,setDates]=useState("");
   
-   
-  
-
    useEffect(()=>{
 
     const fetch=async()=>{
@@ -34,7 +31,7 @@ function Bar({timezone,localTimes,localDates,selectedZone}) {
 
 
   return (
-  <div className=' table-responsive'>
+  <div className=' table-container'>
       <table className="table table-striped table-bordered align-middle">
         <tbody>
           <tr> 
