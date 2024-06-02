@@ -48,19 +48,9 @@ function Search() {
   }
   return (
     <div>
-      <nav className="navbar navbar-expand bg-body-tertiary">
+      <nav className="navbar_secondary navbar navbar-expand bg-body-tertiary">
         <div className="container-fluid">
           <div className="collapse navbar-collapse d-flex justify-content-between align-items-center gap-2" style={{padding:"0.5rem",marginBottom:"7px"}}id="navbarSupportedContent">
-            <div className="dropdown">
-              <button className="btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <FontAwesomeIcon icon={faEllipsisVertical} />
-              </button>
-              <ul className="dropdown-menu">
-                <li><a className="dropdown-item" href="/addZone">Add Zone</a></li>
-                <li><a className="dropdown-item" href="/updateZone">Update Zone</a></li>
-                <li><a className="dropdown-item" href="/deleteZone">Delete Zone</a></li>
-              </ul>
-            </div>
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 gap-3">
               <select value={selectedZone} className="form-select form-select-default " aria-label="default select example" onChange={handleTimeZoneChange}>
                 {

@@ -92,7 +92,7 @@ function Barlist({timezone,selectedDate,selectedZone}) {
     return <div>Loading...</div>;
   }
   return (
-    <div>
+    <div style={{marginTop:'30px'}}>
               {
               ReorderedZone.map((tz,index)=>(
               <div key={tz._id}>

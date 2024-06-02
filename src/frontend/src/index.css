@@ -28,6 +28,8 @@ body {
   place-items: center;
   min-width:320px;
   min-height: 100vh;
+  position:relative;
+  overflow:hidden;
   background-image: url('../../../bg_pic.jpg');
   background-size: cover; 
   background-position: center;

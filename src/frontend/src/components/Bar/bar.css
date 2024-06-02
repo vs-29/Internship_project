@@ -1,27 +1,62 @@
-.table-container {
-    overflow-x: auto; 
-  }
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .table th,
-  .table td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #ddd; 
-  }
-  
-  .fixed-width {
-    width: 2.5rem;
-  }
-  
- 
-  
 
+ .table-container {
+  overflow-x: auto; 
+  width: 96vw;
 
-  
+}
 
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
 
+.table th,
+.table td {
+  padding: 8px;
+  text-align: left;
+  width: 3.55vw;
+}
+
+.bar_rows{
+  border-radius: 10px !important;
+  height: 9vh;
+}
+
+.fixed-width {
+  width: 2.5rem;
+}
+
+.zoneName{ 
+  background-color: rgba(20, 76,152, 0.92) !important;
+  color: white !important;
+  font-weight: bolder !important;
+  font-size:medium;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.zoneOffset{
+  background-color: rgba(48, 102, 158, 0.57) !important;
+  color: white !important;
+  font-weight: bolder !important;
+  font-size: medium;
+  border-bottom: 1px solid rgba(48, 102, 158, 0.57) !important;
+  border-top: 1px solid rgba(48, 102, 158, 0.57)!important;
+}
+ .day {
+  background-color: rgba(48, 102, 158, 0.57)  !important;
+  color: white !important;
+   font-weight: bolder !important; 
+  font-size:medium;
+  padding-left: 12px !important;
+  border-bottom: 1px solid rgba(48, 102, 158, 0.57) !important;
+  border-top: 1px solid rgba(48, 102, 158, 0.57) !important;
+}
+
+.zone_time{
+  color: rgba(10, 76, 176, 0.8) !important;
+  font-weight: bold;
+  border-bottom: 1px solid rgba(48, 102, 158, 0.57) !important;
+  border-right: 1px solid rgba(48, 102, 158, 0.57) !important;
+  border-top: 1px solid rgba(48, 102, 158, 0.57) !important;
+}
