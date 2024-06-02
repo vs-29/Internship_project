@@ -87,10 +87,22 @@ function Barlist({timezone,selectedDate,selectedZone}) {
     fetchTimeZones();
   },[referenceoffset,selectedZone,selectedDate]);
   
+  useEffect(()=>{
+    const timeoutId=setTimeout(()=>{
+
+      if(Timeline===null){
+        alert("Error fetching the Timezones.")
+        window.location.reload();
+      }
+    },5000);
+
+    return()=>clearTimeout(timeoutId);
+  },[Timeline])
  
   if (Timeline === null) {
     return <div>Loading...</div>;
   }
+
   return (
     <div style={{marginTop:'30px'}}>
               {
