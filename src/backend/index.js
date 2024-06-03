@@ -11,10 +11,23 @@ dotenv.config({path:'./.env'});
 
 const app=express();
 
+app.get("/",(req,res)=>{
+    res.send("Hello!!");
+})
+
 app.use(cookieParser());
 app.use(express.json());
 
-app.use(cors());
+
+
+
+app.use(cors({
+    origin: ['http://localhost:5173', 'http://localhost:3000'],
+    credentials: true,
+    methods: ['GET', 'PUT', 'POST', 'DELETE'],
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept']
+}));
+
 
 import Time_zone_routes from "./routes/Time_zone_routes.js"
 import auth_routes from "./routes/auth_route.js"
@@ -25,9 +38,6 @@ app.use('/auth',auth_routes);
 app.use('/timezone',Time_zone_routes);
 app.use('/user',User_routes)
 
-app.get("/",(req,res)=>{
-    res.send("Hello!!");
-})
 
 
 app.use((err,req,res,next)=>{

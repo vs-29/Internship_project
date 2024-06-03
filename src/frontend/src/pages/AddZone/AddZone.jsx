@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import axiosInstance from '../../hooks/api'
 import { useNavigate } from 'react-router-dom';
 import './addzone.css';
+
+
 const AddZone = () => {
     const [data,setData]=useState({
         ZoneName:undefined,

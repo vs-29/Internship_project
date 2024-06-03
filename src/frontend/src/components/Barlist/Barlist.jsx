@@ -17,6 +17,8 @@ function Barlist({timezone,selectedDate,selectedZone}) {
   
   let count=0;
   const calculateTimeline = (timeZone, referenceOffsetHours) => {
+    // console.log(timeZone);
+    // console.log(referenceOffsetHours);
     const [hoursOffset, minuteOffset] = timeZone.Zone_offset.split(':').map(Number);
     const totalOffsetHours = hoursOffset + minuteOffset / 60;
      
@@ -28,7 +30,7 @@ function Barlist({timezone,selectedDate,selectedZone}) {
         // console.log(parsedDate);
         // console.log(parsedDate.getTime());
         const baseTime = parsedDate.setUTCHours(0, 0, 0, 0);
-        // console.log(baseTime);
+        console.log(baseTime);
         let localTimes = [];
         let localDates=[];
 
@@ -37,7 +39,7 @@ function Barlist({timezone,selectedDate,selectedZone}) {
             const localTime = adjustdatebyOffset(baseTime, offsetDifference + i);
             const formattedTime=formatTime(localTime);
             const currentDate=new Date(localTime);
-            //  console.log(localTime);
+            //  console.log(formattedTime);
             
              localTimes.push(formattedTime+' ');
              localDates.push(currentDate.toISOString().substring(0,10));
@@ -67,7 +69,8 @@ function Barlist({timezone,selectedDate,selectedZone}) {
             if(b.ZoneName==selectedZone)return 1;
             return 0;
           })
-          setReorderedZone(reorder)
+          setReorderedZone(reorder);
+          // console.log(ReorderedZone);
           const timelines= await Promise.all(reorder.map((tz)=>{
              return calculateTimeline(tz,referenceoffset);
           }))
