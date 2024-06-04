@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useContext } from 'react'
 import axiosInstance from '../../hooks/api'
 import { useNavigate } from 'react-router-dom';
 import './addzone.css';
-
+import { AuthContext } from '../../context/AuthContext';
 
 const AddZone = () => {
     const [data,setData]=useState({
@@ -10,6 +10,8 @@ const AddZone = () => {
         Zone_offset:undefined,
     });
     const [timeZone,setTimeZone]=useState([]);
+    
+    const { user} = useContext(AuthContext);
 
     const navigate=useNavigate();
 
@@ -36,40 +38,44 @@ const AddZone = () => {
     const HandleClick=async (e)=>{
       e.preventDefault();
      
-    
-        try{
-            console.log(data.ZoneName);
-            console.log(data.Zone_offset);
-            if(!data.ZoneName)
-                {
-                    alert("Please input ZoneName!!");
-                    return;
-                }else if(data.ZoneName!=data.ZoneName.toUpperCase())
-                {
-                   alert("Please Input in capital letters");
-                   return;
-                }
-                console.log(ValidateUTC(data.Zone_offset));
-               if(!data.Zone_offset || !ValidateUTC(data.Zone_offset))
-                {
-                    alert("Please Input Valid Format (eg.+05:30 or -8:00)")
-                    return;
-                }
-                const duplicateZone=timeZone.find((zone)=>
-                zone.ZoneName===data.ZoneName && zone.Zone_offset===data.Zone_offset
-         );
+       if(user.isAdmin){
+                try{
+                    console.log(data.ZoneName);
+                    console.log(data.Zone_offset);
+                    if(!data.ZoneName)
+                        {
+                            alert("Please input ZoneName!!");
+                            return;
+                        }else if(data.ZoneName!=data.ZoneName.toUpperCase())
+                        {
+                        alert("Please Input in capital letters");
+                        return;
+                        }
+                        console.log(ValidateUTC(data.Zone_offset));
+                    if(!data.Zone_offset || !ValidateUTC(data.Zone_offset))
+                        {
+                            alert("Please Input Valid Format (eg.+05:30 or -8:00)")
+                            return;
+                        }
+                        const duplicateZone=timeZone.find((zone)=>
+                        zone.ZoneName===data.ZoneName && zone.Zone_offset===data.Zone_offset
+                );
 
-         if(duplicateZone)
-            {
-                alert('Zone already Exists with same Name and offset');
-                return;
-            }
-        await axiosInstance.post("/timezone",data);
-        alert("TimeZone added successfully!");
-        navigate('/');
-        }catch(error){
-            console.error('Error adding timeZone',error.message);
-            alert('An error occured while adding the timeZone.Please try again later');
+                if(duplicateZone)
+                    {
+                        alert('Zone already Exists with same Name and offset');
+                        return;
+                    }
+                await axiosInstance.post("/timezone",data);
+                alert("TimeZone added successfully!");
+                navigate('/admin');
+            
+                }catch(error){
+                    console.error('Error adding timeZone',error.message);
+                    alert('An error occured while adding the timeZone.Please try again later');
+                }
+        }else{
+            alert("You are not Authorized!");
         }
     }
     useEffect(()=>{
@@ -100,7 +106,7 @@ const AddZone = () => {
                 </div>
             </div>
             <div className=" justify-content-center mb-1">
-            <button type="submit" className="btn btn-primary col-sm-7" onClick={HandleClick} >Submit</button>
+            <button type="submit" className="btn btn-primary col-sm-7"  onClick={HandleClick} >Submit</button>
             </div>
         </form>
     </div>

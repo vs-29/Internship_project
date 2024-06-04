@@ -1,7 +1,9 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import axiosInstance from '../../hooks/api';
 import './updatezone.css'
+import { AuthContext } from '../../context/AuthContext';
+
 
 const UpdateZone = () => {
   const [timeZone,setTimeZone]=useState([]);
@@ -10,7 +12,10 @@ const UpdateZone = () => {
   const [data,setData]=useState({
     ZoneName:undefined,
     Zone_offset:undefined,
-})
+  })
+  const { user } = useContext(AuthContext);
+
+
   const navigate=useNavigate();
 
   const handleTimeZoneChange=(e)=>{
@@ -39,7 +44,8 @@ const UpdateZone = () => {
   const HandleUpdate=async(e)=>{
       e.preventDefault();
     
-      try {
+      if(user.isAdmin){
+        try {
         if(!data.ZoneName)
             {
                 alert("Please input ZoneName!!");
@@ -75,6 +81,9 @@ const UpdateZone = () => {
             } catch (error) {
                 console.log({message:error.message});
             }
+        }else{
+           alert("You are not Authorized!");
+        }
   }
   const HandleChange=(e)=>{
     setData({...data,[e.target.name]:e.target.value})

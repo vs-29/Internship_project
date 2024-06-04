@@ -24,9 +24,14 @@ function App() {
 
     if(!user)
       {
-        return <Navigate to='/login'/>
+        return <Navigate to="/login"/>
       }
+    if(user.isAdmin){
       return children;
+    }
+    alert("Not Authorized");
+    return <Navigate to="/"/>
+      
   }
 
   return (

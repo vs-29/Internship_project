@@ -30,7 +30,7 @@ function Barlist({timezone,selectedDate,selectedZone}) {
         // console.log(parsedDate);
         // console.log(parsedDate.getTime());
         const baseTime = parsedDate.setUTCHours(0, 0, 0, 0);
-        console.log(baseTime);
+        // console.log(baseTime);
         let localTimes = [];
         let localDates=[];
 
@@ -74,11 +74,11 @@ function Barlist({timezone,selectedDate,selectedZone}) {
           const timelines= await Promise.all(reorder.map((tz)=>{
              return calculateTimeline(tz,referenceoffset);
           }))
-          console.log(timelines);
-          console.log(timelines[0].localDates);
-          console.log(timelines[0].localTimes);
+          // console.log(timelines);
+          // console.log(timelines[0].localDates);
+          // console.log(timelines[0].localTimes);
           setTimeline(timelines);
-          console.log(Timeline);
+          // console.log(Timeline);
         }else{
           console.log("cannot set offset hours");
         }
@@ -121,6 +121,4 @@ function Barlist({timezone,selectedDate,selectedZone}) {
 }
 
 export default Barlist
-
-
 

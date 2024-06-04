@@ -7,10 +7,10 @@ const Admin = () => {
   return (
     <div className='main_container'>
       <NavBar/>
-      <div className="div">
-      <h3>Hello Admin!</h3>
-      </div>
+      <div className="Search_container">
+      <h2>Hello Admin</h2>
       <Search/>
+      </div>
     </div>
   )
 }

@@ -30,7 +30,12 @@ const Login = () => {
             console.log(res.data);
             dispatch({ type: "LOGIN_SUCCESS", payload: res?.data});
             alert("Logged In Successfully");
-            navigate("/");
+            if(res.data.isAdmin){
+             navigate("/admin");
+            }else{
+             navigate("/");
+            }
+           
         } catch (err) {
             dispatch({ type: "LOGIN_FAILURE", payload: err.response?.data });
             if(err.response?.data.status===404)

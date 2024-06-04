@@ -55,8 +55,13 @@
 
 .zone_time{
   color: rgba(10, 76, 176, 0.8) !important;
+  background-color:#3298cc7d!important; ;
   font-weight: bold;
   border-bottom: 1px solid rgba(48, 102, 158, 0.57) !important;
   border-right: 1px solid rgba(48, 102, 158, 0.57) !important;
   border-top: 1px solid rgba(48, 102, 158, 0.57) !important;
+}
+
+.bgChange{
+    background-color: #fffff3 !important; 
 }

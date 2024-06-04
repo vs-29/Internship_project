@@ -16,20 +16,34 @@ function formateDate(date)
 function Bar({timezone,localTimes,localDates,selectedZone}) {
    const uniqueDates=[...new Set(localDates)];
    const [dates,setDates]=useState("");
-  
+   const [Index, setIndex] = useState(null);
+   
+
+
+   const indexsetter=(localDates)=>{
+     
+    for(let i=1;i<localDates.length;i++){
+      if(localDates[i]!==localDates[i-1]){
+        setIndex(i);
+        break;
+      }
+    }
+  }
+
    useEffect(()=>{
 
     const fetch=async()=>{
       const dates= await Promise.all(uniqueDates.map((dt)=>{
         return formateDate(dt);
      }))
-    //  console.log(dates);
+     console.log(localDates);
      setDates(dates);
     }
     fetch();
+    indexsetter(localDates);
    },[localDates])
 
-
+  
   return (
   <div className=' table-container'>
       <table className="table table-striped table-bordered align-middle">
@@ -40,8 +54,8 @@ function Bar({timezone,localTimes,localDates,selectedZone}) {
             <td className='day'><div className="fixed-width">{dates.length >= 2 ? `${dates[0]} - ${dates[1]}` : dates[0]}</div></td>
               {  
                localTimes.map((tz,index)=>(
-                  <td className='zone_time'><span >{localTimes[index]} </span></td>
-                ))
+                 <td key={index} className={`zone_time ${index >= Index && Index !== null ? 'bgChange' : ''}`}><span>{localTimes[index]}</span></td>
+               ))
               } 
           </tr>
         </tbody>

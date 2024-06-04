@@ -1,11 +1,13 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 import axiosInstance from '../../hooks/api';
 import { useNavigate } from 'react-router-dom';
 import "./deletezone.css"
+import { AuthContext } from '../../context/AuthContext';
+
 const DeleteZone = () => {
     const [timeZone,setTimeZone]=useState([]);
     const [selectedZone,setSelectedZone]=useState("");
-
+    const { user } = useContext(AuthContext);
 
     const navigate=useNavigate();
 
@@ -15,7 +17,8 @@ const DeleteZone = () => {
     }
 
     const HandleDelete=async(req,res)=>{
-        try {
+      if(user.isAdmin)
+      { try {
             const foundZone=timeZone.find(tz=>tz.ZoneName===selectedZone);
             const deletedZone=await axiosInstance.delete(`/timezone/${foundZone._id}`);
             console.log(deletedZone);
@@ -27,6 +30,9 @@ const DeleteZone = () => {
         } catch (error) {
             console.log({message:error.message});
         }
+      }else{
+        alert("You are not Authorized!");
+      }
     }
 
     useEffect(()=>{

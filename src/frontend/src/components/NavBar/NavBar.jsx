@@ -36,24 +36,27 @@ const NavBar = () => {
                         <button type="button" className="btn btn-md btn-danger" onClick={Logout}>Log-Out</button>
                         {user.isAdmin &&
                             <div className="dropdown">
-                                <button  class="btn " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                                <button  className="btn " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvas">
                                     <FontAwesomeIcon icon={faEllipsisVertical} />
                                 </button>
-                                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-                                        <div class="offcanvas-header">
-                                            <h5 class="offcanvas-title" id="offcanvasRightLabel">Hello Admin!</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                    <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+                                        <div className="offcanvas-header">
+                                            <h5 className="offcanvas-title" id="offcanvasLabel">Hello {formatFullname(user)}!</h5>
+                                            <button type="button" className="btn-close " data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                         </div>
-                                        <div class="offcanvas-body">
-                                        <div class="dropdown mt-3">
-                                            <p>{formatFullname(user)},Here you can Edit the TimeZone</p>
-                                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                                Options
-                                            </button>
-                                            <ul className="dropdown-menu">
-                                            <li><a className="dropdown-item" href="/addZone">Add Zone</a></li>
-                                            <li><a className="dropdown-item" href="/updateZone">Update Zone</a></li>
-                                            <li><a className="dropdown-item" href="/deleteZone">Delete Zone</a></li>
+                                        <div className="offcanvas-body">
+                                        <div className="dropdown mt-3">
+
+                                            <ul className='nav'>
+                                                <li className='nav-item title'>DASHBOARD</li>
+                                                <li className='nav-item nav-category'> MANAGE TIMEZONES:</li>
+                                                <li className='nav-item'><a href='./addZone' style={{"text-decoration": "none", "color": "inherit"}}>Add timezone</a></li>
+                                                <li className='nav-item'><a href='./deleteZone'style={{"text-decoration": "none", "color": "inherit"}}>Delete timezone</a></li>
+                                                <li className='nav-item'><a href='./updateZone'style={{"text-decoration": "none", "color": "inherit"}}>Update timezone</a></li>
+                                                <li className='nav-item nav-category'> MANAGE USERS:</li>
+                                                <li className='nav-item'>Add user</li>
+                                                <li className='nav-item'>Update user</li>
+                                                <li className='nav-item'>Delete user</li>
                                             </ul>
                                         </div>    
                                         </div>
