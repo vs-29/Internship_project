@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useRef} from 'react'
 import Bar from '../Bar/Bar'
 
 const adjustdatebyOffset=(date,offsetHours)=>{
@@ -10,15 +10,20 @@ const formatTime=(date)=>{
   return date.toISOString().substring(11,16);
 }
 
+
+
 function Barlist({timezone,selectedDate,selectedZone}) {
   const [referenceoffset, setReferenceOffset] = useState(0);
   const [Timeline,setTimeline]=useState(null);
   const [ReorderedZone,setReorderedZone]=useState(null);
-  
-  let count=0;
+  const [selectedHour, setSelectedHour] = useState(null);
+  const [overlayPosition, setOverlayPosition] = useState(0);
+
+
+  const barlistRef = useRef(null);
+
   const calculateTimeline = (timeZone, referenceOffsetHours) => {
-    // console.log(timeZone);
-    // console.log(referenceOffsetHours);
+   
     const [hoursOffset, minuteOffset] = timeZone.Zone_offset.split(':').map(Number);
     const totalOffsetHours = hoursOffset + minuteOffset / 60;
      
@@ -27,10 +32,8 @@ function Barlist({timezone,selectedDate,selectedZone}) {
     const parsedDate = new Date(selectedDate);
 
     if (!isNaN(parsedDate.getTime())) {
-        // console.log(parsedDate);
-        // console.log(parsedDate.getTime());
+     
         const baseTime = parsedDate.setUTCHours(0, 0, 0, 0);
-        // console.log(baseTime);
         let localTimes = [];
         let localDates=[];
 
@@ -39,19 +42,20 @@ function Barlist({timezone,selectedDate,selectedZone}) {
             const localTime = adjustdatebyOffset(baseTime, offsetDifference + i);
             const formattedTime=formatTime(localTime);
             const currentDate=new Date(localTime);
-            //  console.log(formattedTime);
+         
             
              localTimes.push(formattedTime+' ');
              localDates.push(currentDate.toISOString().substring(0,10));
         }
-        // console.log(localTimes);
-        // console.log(count++);
+      
         return {localTimes,localDates} ;
        } else {
         console.log("Invalid Date format", selectedDate);
         return {localTimes:[],localDates:[]};
     }
-}
+  }
+
+
   useEffect(()=>{
     const fetchTimeZones= async()=>{
       try {
@@ -70,15 +74,13 @@ function Barlist({timezone,selectedDate,selectedZone}) {
             return 0;
           })
           setReorderedZone(reorder);
-          // console.log(ReorderedZone);
+        
           const timelines= await Promise.all(reorder.map((tz)=>{
              return calculateTimeline(tz,referenceoffset);
           }))
-          // console.log(timelines);
-          // console.log(timelines[0].localDates);
-          // console.log(timelines[0].localTimes);
+          console.log(timelines.localDates);
           setTimeline(timelines);
-          // console.log(Timeline);
+        
         }else{
           console.log("cannot set offset hours");
         }
@@ -86,10 +88,12 @@ function Barlist({timezone,selectedDate,selectedZone}) {
         console.log(error);
       }
     }
-
+   
     fetchTimeZones();
   },[referenceoffset,selectedZone,selectedDate]);
   
+
+
   useEffect(()=>{
     const timeoutId=setTimeout(()=>{
 
@@ -102,20 +106,42 @@ function Barlist({timezone,selectedDate,selectedZone}) {
     return()=>clearTimeout(timeoutId);
   },[Timeline])
  
+
+
   if (Timeline === null) {
     return <div>Loading...</div>;
   }
 
+
+  const handleHourClick = (hour,event) => {
+    console.log(event);
+    setSelectedHour(hour);
+    const rect = barlistRef.current.getBoundingClientRect();
+    const offsetX = event.clientX - rect.left;
+    console.log(offsetX)
+    setOverlayPosition(offsetX );
+  };
+ 
+
+// console.log(overlayPosition);
   return (
-    <div style={{marginTop:'30px'}}>
-              {
-              ReorderedZone.map((tz,index)=>(
-              <div key={tz._id}>
-                <Bar timezone={tz}  localTimes={Timeline[index].localTimes} localDates={Timeline[index].localDates} selectedZone={selectedZone}/>
-              </div>
-              ))
-              }
-             
+   <div className="barlist-container" ref={barlistRef}> 
+      {ReorderedZone.map((tz, index) => (
+        <div key={tz._id}>
+          <Bar timezone={tz} localTimes={Timeline[index].localTimes} localDates={Timeline[index].localDates} selectedZone={selectedZone}  selectedHour={selectedHour} onHourClick={handleHourClick}/>
+        </div>
+      ))}
+      {selectedHour !== null ? <div className="overlay-box"
+          style={{
+          marginLeft:overlayPosition + 'px' ,
+          marginTop:`-${timezone.length*150}px`,
+          width: '60px', 
+          height:`${timezone.length*100}px`,
+          border:'1px solid red',
+          position:'abosolute',
+        }}>
+        Hi
+      </div > : null}
     </div>
   )
 }

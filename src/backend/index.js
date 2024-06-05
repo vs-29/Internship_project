@@ -22,7 +22,7 @@ app.use(express.json());
 
 
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:3000'],
+    origin: ['http://localhost:5173', 'http://localhost:3001'],
     credentials: true,
     methods: ['GET', 'PUT', 'POST', 'DELETE'],
     allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept']
@@ -53,7 +53,7 @@ app.use((err,req,res,next)=>{
 ConnectDb().then(()=>{
     try{
         console.log(process.env.PORT);
-        app.listen(process.env.PORT|| 3000,()=>{
+        app.listen(process.env.PORT|| 3001,()=>{
             console.log(`http://localhost:${process.env.PORT}`);
         })
     }catch(err){

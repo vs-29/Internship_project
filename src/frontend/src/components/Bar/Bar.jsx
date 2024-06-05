@@ -4,46 +4,51 @@ import './bar.css';
 
 function formateDate(date)
 {
-//  console.log(date);
+
  const[year,month,day]=date.split('-');
 
  const monthNames=[" ","Jan","Feb","March","April","May","June","July","August","Sept","Oct","Nov","Dec"];
  const formattedMonth=monthNames[parseInt(month)];
-//  console.log(formattedMonth);
+
  return `${day} ${formattedMonth}`;
 }
 
-function Bar({timezone,localTimes,localDates,selectedZone}) {
+function Bar({timezone,localTimes,localDates,selectedZone,selectedHour,onHourClick}) {
    const uniqueDates=[...new Set(localDates)];
    const [dates,setDates]=useState("");
    const [Index, setIndex] = useState(null);
    
-
-
-   const indexsetter=(localDates)=>{
-     
-    for(let i=1;i<localDates.length;i++){
-      if(localDates[i]!==localDates[i-1]){
-        setIndex(i);
-        break;
-      }
-    }
-  }
-
+   console.log(localDates);
    useEffect(()=>{
-
+  
     const fetch=async()=>{
       const dates= await Promise.all(uniqueDates.map((dt)=>{
         return formateDate(dt);
      }))
-     console.log(localDates);
+    //  console.log(timezone.ZoneName)
+    //  console.log(localDates);
      setDates(dates);
     }
     fetch();
-    indexsetter(localDates);
-   },[localDates])
+   },[selectedZone,localDates])
 
-  
+
+   useEffect(()=>{
+    for(let i=1;i<localDates.length;i++){
+      console.log(localDates[i]);
+      console.log(localDates[i-1]);
+      if(localDates[i]!==localDates[i-1]){
+        setIndex(i);
+        console.log(Index);
+        break;
+      }
+
+    }
+   },[selectedZone,localTimes])
+   const handleClick = (hour,event) => {
+    onHourClick(hour,event); 
+  };
+
   return (
   <div className=' table-container'>
       <table className="table table-striped table-bordered align-middle">
@@ -54,9 +59,14 @@ function Bar({timezone,localTimes,localDates,selectedZone}) {
             <td className='day'><div className="fixed-width">{dates.length >= 2 ? `${dates[0]} - ${dates[1]}` : dates[0]}</div></td>
               {  
                localTimes.map((tz,index)=>(
-                 <td key={index} className={`zone_time ${index >= Index && Index !== null ? 'bgChange' : ''}`}><span>{localTimes[index]}</span></td>
+                <td key={index} className={`zone_time ${index === 0 ? '' : (index >= Index && Index !== null ? 'bgChange' : '')} ${selectedHour === index ? 'selected-hour' : ''}`} onClick={(event) => handleClick(index,event)}>
+                <span>{localTimes[index]}</span>
+                <span>{index}</span>
+                <span>/{Index}</span>
+              </td>
                ))
               } 
+              {/* {Index} */}
           </tr>
         </tbody>
       </table>
