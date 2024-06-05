@@ -1,12 +1,12 @@
-// User.js
-
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../hooks/api';
-import './user-table.css'; // Import your CSS file
+import './user-table.css'; 
+import { useNavigate } from 'react-router-dom';
 
 const User = () => {
   const [user, setUsers] = useState([]);
 
+  const navigate=useNavigate();
   useEffect(() => {
     axiosInstance.get('http://localhost:3001/user')
       .then(response => {
@@ -17,7 +17,9 @@ const User = () => {
         alert("Error fetching users:");
       });
   }, []);
-
+  const handleUpdate=(userId)=>{
+   navigate(`/updateuser/${userId}`);
+  }
   const deleteUser = (userId) => {
     axiosInstance.delete(`http://localhost:3001/user/${userId}`)
       .then(response => {
@@ -33,7 +35,7 @@ const User = () => {
   return (
     <div className='usertable_container'>
       <h1>User Table</h1>
-      <table className="table table-striped table-bordered align-middle">
+      <table >
         <thead>
           <tr>
             <th>Sr.No</th>
@@ -47,7 +49,7 @@ const User = () => {
               <td>{index + 1}</td>
               <td>{user.fullname}</td>
               <td>
-                <button type="button" className="btn btn-secondary" onClick={() => console.log(`Edit user with ID: ${user._id}`)}>Update</button>
+                <button type="button" className="btn btn-secondary" onClick={()=>{handleUpdate(user._id)}} >Update</button>
                 <button type="button" className="btn btn-danger"  onClick={() => deleteUser(user._id)}>Delete</button>
               </td>
             </tr>

@@ -17,6 +17,7 @@ import { AuthContext } from './context/AuthContext';
 import { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import User from './pages/User/User.jsx';
+import UpdateUser from './pages/UpdateUser/UpdateUser.jsx';
 
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
       <Route path='/login' element={<Login/>}/>
       <Route path='/admin' element={<ProtectRoute><Admin/></ProtectRoute>}/>
       <Route path='/user' element={<ProtectRoute><User/></ProtectRoute>}/>
+      <Route path='/updateuser/:id' element={<ProtectRoute><UpdateUser/></ProtectRoute>}/>
      </Routes>
      </BrowserRouter>
     </>
