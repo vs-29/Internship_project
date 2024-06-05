@@ -9,7 +9,7 @@ const Register = () => {
         fullname: "",
         password: ""
     });
-    const [showPassword, setShowPassword] = useState(false); // Track if password visibility is toggled
+    const [showPassword, setShowPassword] = useState(false); 
     const navigate = useNavigate();
     const { loading, error, dispatch } = useContext(AuthContext);
 

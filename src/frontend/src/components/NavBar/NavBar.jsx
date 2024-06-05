@@ -54,9 +54,9 @@ const NavBar = () => {
                                                 <li className='nav-item'><a href='./deleteZone'style={{"text-decoration": "none", "color": "inherit"}}>Delete timezone</a></li>
                                                 <li className='nav-item'><a href='./updateZone'style={{"text-decoration": "none", "color": "inherit"}}>Update timezone</a></li>
                                                 <li className='nav-item nav-category'> MANAGE USERS:</li>
-                                                <li className='nav-item'>Add user</li>
-                                                <li className='nav-item'>Update user</li>
-                                                <li className='nav-item'>Delete user</li>
+                                                <li className='nav-item'>
+                                                    <a href="/user" style={{ color: "inherit", textDecoration: "none" }}>Users</a>
+                                                </li>
                                             </ul>
                                         </div>    
                                         </div>

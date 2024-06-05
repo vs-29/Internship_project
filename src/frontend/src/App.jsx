@@ -42,14 +42,14 @@ function App() {
      <BrowserRouter>
      <Routes>
       <Route path='/' element={<Home/>}/>
-      <Route path='/addZone' element={<AddZone/>}/>
-      <Route path='/updateZone' element={<UpdateZone/>}/>
-      <Route path='/deleteZone' element={<DeleteZone/>}/>
+      <Route path='/addZone' element={<ProtectRoute><AddZone/></ProtectRoute>}/>
+      <Route path='/updateZone' element={<ProtectRoute><UpdateZone/></ProtectRoute>}/>
+      <Route path='/deleteZone' element={<ProtectRoute><DeleteZone/></ProtectRoute>}/>
       <Route path='/register' element={<Register/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/admin' element={<ProtectRoute><Admin/></ProtectRoute>}/>
       <Route path='/user' element={<ProtectRoute><User/></ProtectRoute>}/>
-      <Route path='/updateuser/:id' element={<ProtectRoute><UpdateUser/></ProtectRoute>}/>
+      <Route path='/updateuser/:userId' element={<ProtectRoute><UpdateUser/></ProtectRoute>}/>
      </Routes>
      </BrowserRouter>
     </>

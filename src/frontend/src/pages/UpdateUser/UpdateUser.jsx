@@ -1,6 +1,6 @@
 import React,{useState,useEffect,useContext} from 'react'
 import './updateuser.css'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import axiosInstance from '../../hooks/api';
 import { AuthContext } from '../../context/AuthContext';
 
@@ -12,41 +12,40 @@ const UpdateUser = () => {
     })
     const [users,setUsers]=useState([])
     const { user } = useContext(AuthContext);
+    const { userId } = useParams();
 
     const navigate=useNavigate();
 
     const HandleUpdate=async(e)=>{
         e.preventDefault();
-      
         if(user.isAdmin){
           try {
-          if(!data.fullname)
+          if(!data.fullname.trim().toLowerCase())
               {
                   alert("Please input UserName!!");
                   return;
               }
              
-             if(!data.password)
+             if(!data.password.trim())
               {
                   alert("Please Input password")
                   return;
               }
+              console.log(users);
               const duplicateuser=users.find((ut)=>
-              ut.fullname===data.fullname && ut.password===data.password
-              );
-  
+              ut.fullname===data.fullname.trim().toLowerCase() );
+            console.log(duplicateuser);
              if(duplicateuser)
             {
-              alert('User already Exists with same Name and password');
+              alert('User already Exists');
+              navigate("/user");
               return;
             }
-              
-                const updatedUser = { ...foundUser, ...data };
-                console.log(updatedZone._id);
-                  const response=await axiosInstance.put(`/user/${updatedUser._id}`,data);
+                 console.log(userId);
+                  const response=await axiosInstance.put(`/user/${userId}`,data);
                   console.log(response.data);
                   alert("User Updated Successfully!");
-                  navigate("/admin");
+                  navigate("/user");
               } catch (error) {
                   console.log({message:error.message});
               }
@@ -54,21 +53,26 @@ const UpdateUser = () => {
              alert("You are not Authorized!");
           }
     }
+
+
     const HandleChange=(e)=>{
         setData({...data,[e.target.name]:e.target.value})
     }
-    useEffect(()=>{
-        const fetchTimeZones=async ()=>{
-          try {
-            const response=await axiosInstance.get('/user');
-            setUsers(response.data);    
-          } catch (error) {
-            console.log(error);
-          }
-        }
+
     
-        fetchTimeZones();
-      },[]);
+    useEffect(() => {
+        (async () => {
+            try {
+                const response = await axiosInstance.get('/user');
+                setUsers(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        })();
+        console.log(users);
+    }, []);
+    
+
   return (
     <div>
         <form>
