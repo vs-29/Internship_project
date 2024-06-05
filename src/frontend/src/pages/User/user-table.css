@@ -1,10 +1,10 @@
 
 .usertable_container{
-    width:100%;
+    width:100vh;
     margin:20px auto;
 }
 .usertable_container table {
-   width:100%;
+   width:100vh;
    height: auto;
    border-collapse:collapse;
    border:1px solid #e0e0e0;

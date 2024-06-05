@@ -33,6 +33,7 @@ body {
   background-image: url('../../../bg_pic.jpg');
   background-size: cover; 
   background-position: center;
+  font-family: 'Roboto','sans-serif';
 }
 
 h1 {

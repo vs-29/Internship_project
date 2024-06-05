@@ -59,7 +59,7 @@ function Bar({timezone,localTimes,localDates,selectedZone,selectedHour,onHourCli
             <td className='day'><div className="fixed-width">{dates.length >= 2 ? `${dates[0]} - ${dates[1]}` : dates[0]}</div></td>
               {  
                localTimes.map((tz,index)=>(
-                <td key={index} className={`zone_time ${timezone.ZoneName===selectedZone? 'uno' : (index >= Index && Index !== null ? 'bgChange' : '')} ${selectedHour === index ? 'selected-hour' : ''}`} onClick={(event) => handleClick(index,event)}>
+                <td key={index} className={`zone_time fixed-width ${timezone.ZoneName===selectedZone? '' : (index >= Index && Index !== null ? 'bgChange' : '')} ${selectedHour === index ? 'selected-hour' : ''}`} onClick={(event) => handleClick(index,event)}>
                 <span>{localTimes[index]}</span>
               </td>
                ))
