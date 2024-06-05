@@ -134,7 +134,6 @@ function Barlist({timezone,selectedDate,selectedZone}) {
       {selectedHour !== null ? <div className="overlay-box"
           style={{
           marginLeft:overlayPosition + 'px' ,
-          marginTop:`-${timezone.length*150}px`,
           width: '60px', 
           height:`${timezone.length*100}px`,
           border:'1px solid red',
