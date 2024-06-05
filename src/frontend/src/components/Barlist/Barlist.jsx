@@ -17,7 +17,6 @@ function Barlist({timezone,selectedDate,selectedZone}) {
   const [Timeline,setTimeline]=useState(null);
   const [ReorderedZone,setReorderedZone]=useState(null);
   const [selectedHour, setSelectedHour] = useState(null);
-  const [overlayPosition, setOverlayPosition] = useState(0);
 
 
   const barlistRef = useRef(null);
@@ -63,11 +62,11 @@ function Barlist({timezone,selectedDate,selectedZone}) {
         if(!selectedZone) selectedZone="IST";
         const foundZone=timezone.find(tz=>tz.ZoneName===selectedZone);
         if(foundZone){
-          // console.log(foundZone);
+         
           const [refHoursOffset,refMinutesOffset]=foundZone.Zone_offset.split(':').map(Number);
           const referenceoffset=refHoursOffset+refMinutesOffset/60;
           setReferenceOffset(referenceoffset);
-          // console.log(timezone);
+        
           const reorder=timezone.slice().sort((a,b)=>{
             if(a.ZoneName==selectedZone) return -1;
             if(b.ZoneName==selectedZone)return 1;
@@ -116,31 +115,17 @@ function Barlist({timezone,selectedDate,selectedZone}) {
   const handleHourClick = (hour,event) => {
     console.log(event);
     setSelectedHour(hour);
-    const rect = barlistRef.current.getBoundingClientRect();
-    const offsetX = event.clientX - rect.left;
-    console.log(offsetX)
-    setOverlayPosition(offsetX );
   };
  
 
-// console.log(overlayPosition);
+
   return (
-   <div className="barlist-container" ref={barlistRef}> 
+   <div className="barlist-container" style={{marginTop:"20px"}} ref={barlistRef}> 
       {ReorderedZone.map((tz, index) => (
         <div key={tz._id}>
           <Bar timezone={tz} localTimes={Timeline[index].localTimes} localDates={Timeline[index].localDates} selectedZone={selectedZone}  selectedHour={selectedHour} onHourClick={handleHourClick}/>
         </div>
       ))}
-      {selectedHour !== null ? <div className="overlay-box"
-          style={{
-          marginLeft:overlayPosition + 'px' ,
-          width: '60px', 
-          height:`${timezone.length*100}px`,
-          border:'1px solid red',
-          position:'abosolute',
-        }}>
-        Hi
-      </div > : null}
     </div>
   )
 }

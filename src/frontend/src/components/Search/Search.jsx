@@ -47,8 +47,8 @@ function Search() {
   setIsSubmitted(true);
   }
   return (
-    <div>
-      <nav className="navbar_secondary navbar navbar-expand bg-body-tertiary">
+    <div className='search-container'>
+      <nav className="navbar navbar-expand bg-body-tertiary">
         <div className="container-fluid">
           <div className="collapse navbar-collapse d-flex justify-content-between align-items-center gap-2" style={{padding:"0.5rem",marginBottom:"7px"}}id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0 gap-3">

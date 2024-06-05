@@ -8,13 +8,14 @@
 .table {
   width: 100%;
   border-collapse: collapse;
+  margin:0px;
 }
 
 .table th,
 .table td {
   padding: 8px;
   text-align: left;
-  width: 3.55vw;
+  width: 3.50vw;
 }
 
 .bar_rows{
@@ -23,7 +24,7 @@
 }
 
 .fixed-width {
-  width: 2.5rem;
+  width:2.5rem;
 }
 
 .zoneName{ 
@@ -72,4 +73,6 @@
 }
 .selected-hour{
   background-color: rgb(244, 241, 241)!important;
+  /* border-right: 2px solid rgba(5, 5, 5, 0.57) !important;
+  border-left: 2px solid rgba(5, 5, 5, 0.57) !important; */
 }
