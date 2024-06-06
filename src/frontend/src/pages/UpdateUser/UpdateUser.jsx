@@ -74,18 +74,21 @@ const UpdateUser = () => {
     
 
   return (
-    <div>
+    <div className='user-update-container'>
+      <div className='user_update'>
         <form>
+            <h2>Update User</h2>
           <div className="form-group">
-            <label className="form-label" htmlFor="name">Input New UserName:</label>
+            <label className="form-label" htmlFor="name">New UserName:</label>
             <input type="text" name="fullname" className="form-control" onChange={HandleChange} placeholder="Firstname LastName" />
           </div>
           <div className="form-group">
             <label className="form-label" htmlFor="Offset">Update password</label>
             <input type="text" name="password" className="form-control" onChange={HandleChange} placeholder="password" />
           </div>
-          <button type="submit" className="btn btn-primary btn-submit" onClick={HandleUpdate}>Submit</button>
+          <button type="submit" className="btn btn-primary btn-submit" style={{"width": "200px"}} onClick={HandleUpdate}>Submit</button>
         </form>
+      </div>
     </div>
   )
 }

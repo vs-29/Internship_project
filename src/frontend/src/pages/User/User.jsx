@@ -8,20 +8,23 @@ const User = () => {
 
   const navigate=useNavigate();
   useEffect(() => {
-    axiosInstance.get('http://localhost:3001/user')
+    axiosInstance.get('/user')
       .then(response => {
         setUsers(response.data);
       })
       .catch(error => {
         console.error('Error fetching users:', error);
-        alert("Error fetching users:");
+        if(error.status===403){
+          alert("Re-Login:Token expired")
+        }
+        
       });
   }, []);
   const handleUpdate=(userId)=>{
    navigate(`/updateuser/${userId}`);
   }
   const deleteUser = (userId) => {
-    axiosInstance.delete(`http://localhost:3001/user/${userId}`)
+    axiosInstance.delete(`/user/${userId}`)
       .then(response => {
         console.log('User deleted successfully');
         setUsers(user.filter(user => user._id !== userId));
@@ -34,6 +37,7 @@ const User = () => {
 
   return (
     <div className='usertable_container'>
+      
       <h1>User Table</h1>
       <table >
         <thead>
@@ -49,8 +53,8 @@ const User = () => {
               <td>{index + 1}</td>
               <td>{user.fullname}</td>
               <td>
-                <button type="button" className="btn btn-secondary" onClick={()=>{handleUpdate(user._id)}} >Update</button>
-                <button type="button" className="btn btn-danger"  onClick={() => deleteUser(user._id)}>Delete</button>
+                <button type="button" className="btn btn-secondary" onClick={()=>{handleUpdate(user._id)}} style={{"margin-right":"10px"}}  >Update</button>
+                <button type="button" className="btn btn-danger"  onClick={() => deleteUser(user._id)}  >Delete</button>
               </td>
             </tr>
           ))}

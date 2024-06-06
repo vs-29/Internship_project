@@ -1,14 +1,16 @@
 
 .usertable_container{
     width:100vh;
-    margin:20px auto;
+      margin:20vh auto;
 }
 .usertable_container table {
-   width:100vh;
-   height: auto;
-   border-collapse:collapse;
-   border:1px solid #e0e0e0;
-   margin-top:67px;
+    margin:5rem auto;
+     width:80vh;
+     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); 
+    padding:3rem 5rem;
+    background-color:white;
+    border-collapse:collapse;
+
   }
   
   
@@ -27,12 +29,7 @@
     border-right: 1px solid #e0e0e0;
   }
  
-  .usertable_container .btn{
-    margin-right:5px;
-    padding:5px 10px;
-    border-radius: 4px;
-    cursor:pointer
-  }
+  
 
 
   
