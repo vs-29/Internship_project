@@ -18,6 +18,7 @@ import { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import User from './pages/User/User.jsx';
 import UpdateUser from './pages/UpdateUser/UpdateUser.jsx';
+import Custom_time from './pages/Custome_Time/Custom_time.jsx';
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
       <Route path='/addZone' element={<ProtectRoute><AddZone/></ProtectRoute>}/>
       <Route path='/updateZone' element={<ProtectRoute><UpdateZone/></ProtectRoute>}/>
       <Route path='/deleteZone' element={<ProtectRoute><DeleteZone/></ProtectRoute>}/>
+      <Route path='/custom_time' element={<Custom_time/>}></Route>
       <Route path='/register' element={<Register/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/admin' element={<ProtectRoute><Admin/></ProtectRoute>}/>

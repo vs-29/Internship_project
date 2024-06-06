@@ -64,7 +64,6 @@ function Bar({timezone,localTimes,localDates,selectedZone,selectedHour,onHourCli
               </td>
                ))
               } 
-              {/* {Index} */}
           </tr>
         </tbody>
       </table>

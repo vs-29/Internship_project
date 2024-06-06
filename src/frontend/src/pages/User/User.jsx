@@ -4,22 +4,29 @@ import './user-table.css';
 import { useNavigate } from 'react-router-dom';
 
 const User = () => {
-  const [user, setUsers] = useState([]);
+  const [users, setUsers] = useState([{}]);
 
   const navigate=useNavigate();
+
   useEffect(() => {
     axiosInstance.get('/user')
       .then(response => {
         setUsers(response.data);
+        console.log(response.data,"response")
+        console.log(users);
       })
       .catch(error => {
         console.error('Error fetching users:', error);
-        if(error.status===403){
-          alert("Re-Login:Token expired")
+        if(error.response?.data.status===401){
+          alert("Re-Login:Session expired")
+          navigate("/admin");
         }
         
       });
   }, []);
+
+  console.log(users);
+
   const handleUpdate=(userId)=>{
    navigate(`/updateuser/${userId}`);
   }
@@ -27,7 +34,7 @@ const User = () => {
     axiosInstance.delete(`/user/${userId}`)
       .then(response => {
         console.log('User deleted successfully');
-        setUsers(user.filter(user => user._id !== userId));
+        setUsers(users.filter(user => user._id !== userId));
       })
       .catch(error => {
         console.error('Error deleting user:', error);
@@ -44,19 +51,25 @@ const User = () => {
           <tr>
             <th>Sr.No</th>
             <th>Name</th>
+            <th>Admin Rights</th>
             <th>Actions</th>
+            
           </tr>
         </thead>
+
         <tbody>
-          {user.map((user, index) => (
+          {users.map((user, index) => (
             <tr className='bar_rows' key={index}>
               <td>{index + 1}</td>
               <td>{user.fullname}</td>
+              <td>{user.isAdmin?"True":"False"}</td>
               <td>
-                <button type="button" className="btn btn-secondary" onClick={()=>{handleUpdate(user._id)}} style={{"margin-right":"10px"}}  >Update</button>
+                <button type="button" className="btn btn-secondary" onClick={()=>{handleUpdate(user._id)}} style={{"marginRight":"10px"}}  >Update</button>
                 <button type="button" className="btn btn-danger"  onClick={() => deleteUser(user._id)}  >Delete</button>
               </td>
+              
             </tr>
+            
           ))}
         </tbody>
       </table>
