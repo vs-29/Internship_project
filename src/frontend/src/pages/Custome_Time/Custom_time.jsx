@@ -33,11 +33,17 @@ function Custom_time() {
         hour12: true, 
         hour: 'numeric',
         minute: '2-digit'
-    };
+       };
+       const dateOptions = {
+        day: '2-digit',
+        month: 'short', // or 'long' for full month name
+        year: 'numeric'
+      };
+  
       return {
         timeZoneName: timeZone.ZoneName,
         timeZoneOffset: timeZone.Zone_offset,
-        localDate: baseTime.toISOString().split('T')[0],
+        localDate: baseTime.toLocaleDateString('en-GB', dateOptions), 
         localTime: baseTime.toLocaleTimeString('en-US', timeOptions)
       };
     } else {
