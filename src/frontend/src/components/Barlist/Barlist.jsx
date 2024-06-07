@@ -128,8 +128,8 @@ function Barlist({timezone,selectedDate,selectedZone}) {
         </div>
       ))}
       <div className="links">
-      <a href="">Click Here to compare custom timelines</a>
-      <a href="" style={{marginLeft:"70px"}}>Add to you Calender</a>
+      <a href="/custom_time">Click Here to compare custom timelines</a>
+      <a href="/" style={{marginLeft:"70px"}}>Add to your google Calender</a>
       </div>
     </div>
   )
