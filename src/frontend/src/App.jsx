@@ -19,6 +19,7 @@ import { Navigate } from 'react-router-dom';
 import User from './pages/User/User.jsx';
 import UpdateUser from './pages/UpdateUser/UpdateUser.jsx';
 import Custom_time from './pages/Custome_Time/Custom_time.jsx';
+import Eventpage from './pages/EventPage/Eventpage.jsx';
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
       <Route path='/custom_time' element={<Custom_time/>}></Route>
       <Route path='/register' element={<Register/>}/>
       <Route path='/login' element={<Login/>}/>
+      <Route path='/eventpage' element={<Eventpage/>}/>
       <Route path='/admin' element={<ProtectRoute><Admin/></ProtectRoute>}/>
       <Route path='/user' element={<ProtectRoute><User/></ProtectRoute>}/>
       <Route path='/updateuser/:userId' element={<ProtectRoute><UpdateUser/></ProtectRoute>}/>

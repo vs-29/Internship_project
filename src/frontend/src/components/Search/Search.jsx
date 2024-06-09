@@ -3,9 +3,7 @@ import Form from 'react-bootstrap/Form';
 import axiosInstance from '../../hooks/api';
 import { useNavigate } from 'react-router-dom';
 import Barlist from '../Barlist/Barlist';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
-
+import "./search.css";
 
 function Search() {
   const [date, setDate] = useState(new Date());
@@ -74,6 +72,7 @@ function Search() {
         </div>
       </nav>
       {isSubmitted && <Barlist  timezone={timeZone} selectedDate={date} selectedZone={selectedZone}/>}
+      {isSubmitted && timeZone.length > 0 && <div className='link'><a href='/eventpage'>Click here to Schedule a Meet!</a></div>}
     </div>
   );
 }

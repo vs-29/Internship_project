@@ -2,6 +2,7 @@ import React,{useState,useEffect,useRef} from 'react'
 import Bar from '../Bar/Bar'
 import "./barlist.css"
 
+
 const adjustdatebyOffset=(date,offsetHours)=>{
   // console.log(date);
   return new Date(date+offsetHours*60*60*1000)
@@ -129,7 +130,6 @@ function Barlist({timezone,selectedDate,selectedZone}) {
       ))}
       <div className="links">
       <a href="/custom_time">Click Here to compare custom timelines</a>
-      <a href="/" style={{marginLeft:"70px"}}>Add to your google Calender</a>
       </div>
     </div>
   )
