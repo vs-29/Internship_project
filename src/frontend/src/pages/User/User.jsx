@@ -45,7 +45,7 @@ const User = () => {
   return (
     <div className='usertable_container'>
       
-      <h1>User Table</h1>
+      <h2>User Table</h2>
       <table >
         <thead>
           <tr>

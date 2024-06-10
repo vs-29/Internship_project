@@ -129,7 +129,7 @@ function Barlist({timezone,selectedDate,selectedZone}) {
         </div>
       ))}
       <div className="links">
-      <a href="/custom_time">Click Here to compare custom timelines</a>
+       <a href="/custom_time">Click Here to compare custom timelines</a>
       </div>
     </div>
   )

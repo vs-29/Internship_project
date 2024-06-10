@@ -54,6 +54,7 @@ function Custom_time() {
   const handleConvert = async () => {
     if (!selectedTimeZone || !selectedDate || !selectedTime) {
       console.error('Please select timezone, date, and time.');
+      alert('Please select timezone, date, and time.')
       return;
     }
     const foundZone = timeZones.find(tz => tz.ZoneName === selectedTimeZone);
@@ -66,69 +67,76 @@ function Custom_time() {
       console.error('Selected timezone not found in the database.');
     }
   };
+
   return (
-    <div className="timezone-converter">
-      <h2>Timezone Converter</h2>
-      <div className="converter-form">
-      <div className="form-group">
-          <label>Select Timezone:</label>
-          <select
-            value={selectedTimeZone}
-            onChange={(e) => setSelectedTimeZone(e.target.value)}
-          >
-            <option value="">Select Timezone</option>
-            {timeZones.map((tz) => (
-              <option key={tz._id} value={tz.ZoneName}>{tz.ZoneName}</option>
-            ))}
-          </select>
-        </div>
-        <div className="form-group">
-          <label>Select Date:</label>
-          <input
-            type="date"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-          />
-        </div>
-        <div className="form-group">
-          <label>Select Time:</label>
-          <input
-            type="time"
-            value={selectedTime}
-            onChange={(e) => setSelectedTime(e.target.value)}
-          />
-        </div>
-        <button className="btn btn-primary" onClick={handleConvert}>
-          Convert
-        </button>
-      </div>
-      {Timeline.length > 0 && (
-        <div className="converted-times">
-          <h3>Converted Times:</h3>
-          <table className="table table-striped table-bordered align-middle">
-            <thead>
-              <tr>
-                <th>Timezone Name</th>
-                <th>Timezone Offset</th>
-                <th>Date</th>
-                <th>Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Timeline.map((tz, index) => (
-                <tr key={index}>
-                  <td>{tz.timeZoneName}</td>
-                  <td>{tz.timeZoneOffset}</td>
-                  <td>{tz.localDate}</td>
-                  <td>{tz.localTime}</td>
-                </tr>
+    <div className="container">
+      <div className="timezone-converter">
+        <h2>Timezone Converter</h2>
+        <div className="converter-form">
+          <div className="form-group">
+            <label>Select Timezone:</label>
+            <select
+              className="form-select"
+              value={selectedTimeZone}
+              onChange={(e) => setSelectedTimeZone(e.target.value)}
+            >
+              <option value="">Select Timezone</option>
+              {timeZones.map((tz) => (
+                <option key={tz._id} value={tz.ZoneName}>{tz.ZoneName}</option>
               ))}
-            </tbody>
-          </table>
+            </select>
+          </div>
+          <div className="form-group">
+            <label>Select Date:</label>
+            <input
+              type="date"
+              className="form-control"
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label>Select Time:</label>
+            <input
+              type="time"
+              className="form-control"
+              value={selectedTime}
+              onChange={(e) => setSelectedTime(e.target.value)}
+            />
+          </div>
+          <button className="btn btn-primary" onClick={handleConvert}>
+            Convert
+          </button>
         </div>
-      )}
+        {Timeline.length > 0 && (
+          <div className="converted-times">
+            <h3>Converted Times:</h3>
+            <table className="table table-striped table-bordered align-middle">
+              <thead>
+                <tr>
+                  <th>Timezone Name</th>
+                  <th>Timezone Offset</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Timeline.map((tz, index) => (
+                  <tr key={index}>
+                    <td>{tz.timeZoneName}</td>
+                    <td>{tz.timeZoneOffset}</td>
+                    <td>{tz.localDate}</td>
+                    <td>{tz.localTime}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   );
+  
 }
 
 export default Custom_time;

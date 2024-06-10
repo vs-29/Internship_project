@@ -35,25 +35,39 @@
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 }
-
+.zoneName:hover{
+  background-color: rgb(255, 255, 255)  !important;
+  color: rgb(2, 1, 1) !important;
+}
 .zoneOffset{
   background-color: rgba(48, 102, 158, 0.57) !important;
   color: white !important;
   font-weight: bolder !important;
   font-size: medium;
-  border-bottom: 1px solid rgba(48, 102, 158, 0.57) !important;
-  border-top: 1px solid rgba(48, 102, 158, 0.57)!important;
+  border-bottom: 1px solid rgb(255, 255, 255) !important;
+  border-top: 1px solid rgb(251, 252, 253)!important;
+  border-left: 1.5px solid rgb(255, 255, 255) !important;
+  border-right: 1.5px solid rgb(255, 255, 255) !important;
+}
+.zoneOffset:hover{
+  background-color: rgb(255, 255, 255)  !important;
+  color: rgb(2, 1, 1) !important;
 }
  .day {
   background-color: rgba(48, 102, 158, 0.57)  !important;
   color: white !important;
    font-weight: bolder !important; 
-  font-size:medium;
+  font-size:smaller;
   padding-left: 12px !important;
-  border-bottom: 1px solid rgba(48, 102, 158, 0.57) !important;
-  border-top: 1px solid rgba(48, 102, 158, 0.57) !important;
+  border-bottom: 1px solid rgb(254, 254, 254) !important;
+  border-top: 1px solid rgb(255, 255, 255) !important;
+  border-left: 1.5px solid rgb(255, 255, 255) !important;
+  border-right: 1.5px solid rgb(255, 255, 255) !important;
 }
-
+.day:hover{
+  background-color: rgb(255, 255, 255)  !important;
+  color: rgb(2, 1, 1) !important;
+}
 .zone_time{
   color: rgba(10, 76, 176, 0.8) !important;
   background-color:#3298cc7d!important; 

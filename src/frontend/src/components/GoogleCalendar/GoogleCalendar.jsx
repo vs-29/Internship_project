@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./googlecalendar.css"
 
 export const Calendar = () => {
   const [calendarState, setCalendarState] = useState({
@@ -25,7 +26,9 @@ export const Calendar = () => {
   const accessToken = localStorage.getItem("access_token");
   const expiresIn = localStorage.getItem("expires_in");
 
-  let gapiInited = false, gisInited = false,tokenClient;
+  let gapiInited = false, 
+  gisInited = false,
+  tokenClient;
 
   useEffect(() => {
     gapiLoaded();
@@ -57,7 +60,7 @@ export const Calendar = () => {
     tokenClient = google.accounts.oauth2.initTokenClient({
       client_id: CLIENT_ID,
       scope: SCOPES,
-      callback: "", // defined later
+      callback: "", 
     });
 
     gisInited = true;
@@ -117,7 +120,7 @@ export const Calendar = () => {
     const output = events.reduce(
       (str, event) =>
         `${str}${event.summary} (${event.start.dateTime || event.start.date})\n`,
-      "Events:\n"
+      "Events:\n\n"
     );
     setCalendarState(prevState => ({ ...prevState, eventsContent: output }));
   }
@@ -154,8 +157,10 @@ export const Calendar = () => {
         },
       },
     };
-    console.log(evented);
 
+ 
+    // console.log(evented);
+    // alert(JSON.stringify(evented));
     const request = gapi.client.calendar.events.insert({
       calendarId: "primary",
       resource: evented,
@@ -164,11 +169,15 @@ export const Calendar = () => {
     });
 
     request.execute((event) => {
-      console.log(event);
+      if(event && event.htmlLink){
+        // alert(JSON.stringify(event.htmlLink));
       window.open(event.htmlLink);
-      // After adding the event, refresh the list of upcoming events
-      listUpcomingEvents();
-    });
+      listUpcomingEvents();}
+    },(error) => {
+       alert("error");
+      console.error(error.message);
+      
+      });
   }
 
   const handleAddAttendee = () => {
@@ -184,18 +193,23 @@ export const Calendar = () => {
   const { authenticated, eventsContent, summary, location, description, start, end, timeZone, attendeeEmail, attendees } = calendarState;
 
   return (
-    <div className="container mt-5">
+    <div>
       {!authenticated && (
-        <button className="btn btn-primary" onClick={handleAuthClick}>
-          Authorize
+        <button className="btn btn-primary btn-lg" onClick={handleAuthClick} style={{marginTop:"40vh"}}>
+          Authorize Yourself
         </button>
       )}
       {authenticated && (
         <>
-          <button className="btn btn-danger mb-3" onClick={handleSignoutClick}>
-            Sign Out
-          </button>
-          <form>
+          <div className="signout">
+              <button className="btn btn-danger mb-3 w-20" onClick={handleSignoutClick}>
+                Sign Out
+              </button>
+          </div>
+          <div className="Form-Event-Container">
+          <div className="forms">
+            <h3>Events Details:</h3>
+           <form>
             <div className="mb-3">
               <label htmlFor="summary" className="form-label">Summary:</label>
               <input
@@ -259,7 +273,7 @@ export const Calendar = () => {
             </div>
             <div className="mb-3">
               <label htmlFor="attendeeEmail" className="form-label">Attendee Email:</label>
-              <div className="input-group">
+              <div className="input-group ">
                 <input
                   id="attendeeEmail"
                   className="form-control"
@@ -281,16 +295,20 @@ export const Calendar = () => {
             <button className="btn btn-success me-2" onClick={addManualEvent}>
               Add Event
             </button>
-          </form>
-          <div className="mt-5">
-            <pre style={{ whiteSpace: "pre-wrap", backgroundColor: "#f5f5f5", padding: "10px" }}>
+           </form>
+          </div>
+          <div className="Events-container" >
+            <pre style={{ whiteSpace: "pre-wrap"}}>
               {eventsContent}
             </pre>
+          </div>
           </div>
         </>
       )}
     </div>
   );
+  
+  
   
 };
 

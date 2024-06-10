@@ -93,6 +93,7 @@ const AddZone = () => {
   return (
     <div className='form-container'>
         <form className='border p-5 shadow'>
+            <h3>AddZone</h3>
             <div className="row mb-4 justify-content-center">
                 <label htmlFor="name" className="col-sm-4 col-form-label " >ZoneName:</label>
                 <div className="col-sm-10 " >

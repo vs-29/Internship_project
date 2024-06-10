@@ -1,0 +1,51 @@
+
+.Form-Event-Container {
+    max-width:100vw;
+    margin:0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap:7rem;
+  }
+  
+  .Form-Event-Container form {
+    margin-bottom: 30px;
+  }
+  .Form-Event-Container .form-control {
+    height:50px;
+  }
+  .Form-Event-Container .list-group-item {
+    border: none;
+  }
+  
+  .Form-Event-Container pre {
+    white-space: pre-wrap;
+    background-color:#f9f9f9;
+    padding:5rem 5rem;
+    height: 100%;
+  }
+  
+  .signout{
+    width:100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  .signout button{
+    margin:20px 20px;
+  }
+  .forms{
+    background-color:#f9f9f9;
+    justify-content: center;
+    align-items: center;
+    padding:2rem 2rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); 
+  }
+  .row{
+    display: flex;
+    flex-direction: row;
+  }
+  .Events-container{
+    background-color: #f5f5f5;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); 
+  }
