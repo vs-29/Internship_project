@@ -56,7 +56,7 @@ function Bar({timezone,localTimes,localDates,selectedZone,selectedHour,onHourCli
           <tr className='bar_rows'> 
             <td className='zoneName'><div className="fixed-width">{timezone.ZoneName}</div></td>
             <td className='zoneOffset'> <div className="fixed-width">{timezone.Zone_offset}</div></td>
-            <td className='day'><div className="fixed-width">{dates.length >= 2 ? `${dates[0]} - ${dates[1]}` : dates[0]}</div></td>
+            <td className='day'><div className="fixed-width">{dates.length >= 2 ? `${dates[0]}-${dates[1]}` : dates[0]}</div></td>
               {  
                localTimes.map((tz,index)=>(
                 <td key={index} className={`zone_time fixed-width ${timezone.ZoneName===selectedZone? '' : (index >= Index && Index !== null ? 'bgChange ' : '')} ${selectedHour === index ? 'selected-hour' : ''}`} onClick={(event) => handleClick(index,event)}>

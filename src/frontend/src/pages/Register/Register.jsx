@@ -3,6 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 import axiosInstance from "../../hooks/api";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import "./register.css"
 
 const Register = () => {
     const [credentials, setCredentials] = useState({
@@ -96,10 +97,10 @@ const Register = () => {
                 </div>
             )}
             <div className="mt-3 text-center">
-                <p>Already have account? <Link to='/login'>Login here</Link></p>
+                <p>Already have account? <Link to='/login'> <span className="homeredirect">Login here</span></Link></p>
             </div>
             <Link to='/' style={{textDecoration:"none"}}>
-                <span>Go to Home Page</span>
+                <span className="homeredirect">Go to Home Page</span>
             </Link>
         </div>
     );

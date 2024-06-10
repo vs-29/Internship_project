@@ -20,3 +20,7 @@
         color:#047ef9;
         text-decoration:none;
     }
+    .homeredirect:hover{
+        color: red;
+         text-decoration: underline ;
+      }

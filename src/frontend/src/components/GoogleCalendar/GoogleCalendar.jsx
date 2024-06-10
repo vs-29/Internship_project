@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./googlecalendar.css"
+import { Link } from "react-router-dom";
 
 export const Calendar = () => {
   const [calendarState, setCalendarState] = useState({
@@ -127,8 +128,16 @@ export const Calendar = () => {
 
   function addManualEvent() {
     const { summary, location, description, start, end, timeZone, attendeeEmail } = calendarState;
+
+    if(!summary || !location || !description || !start || !end || !timeZone)
+      {
+        alert("please fill complete details");
+        return;
+      }
     const startUTC = new Date(start).toISOString();
     const endUTC = new Date(end).toISOString();
+
+
     const evented = {
       kind: "calendar#event",
       summary: summary,
@@ -195,16 +204,18 @@ export const Calendar = () => {
   return (
     <div>
       {!authenticated && (
-        <button className="btn btn-primary btn-lg" onClick={handleAuthClick} style={{marginTop:"40vh"}}>
+        <button className="btn btn-primary btn-sm" onClick={handleAuthClick} style={{marginTop:"40vh"}}>
           Authorize Yourself
         </button>
       )}
       {authenticated && (
         <>
           <div className="signout">
-              <button className="btn btn-danger mb-3 w-20" onClick={handleSignoutClick}>
+              <Link to="/" style={{textDecoration:"none"}}> <button className="btn btn-success w-20"> Home Page</button></Link>
+              <button className="btn btn-danger mb-3 w-20 " onClick={handleSignoutClick}>
                 Sign Out
               </button>
+              
           </div>
           <div className="Form-Event-Container">
           <div className="forms">

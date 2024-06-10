@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import axiosInstance from '../../hooks/api';
 import { Link, useNavigate } from 'react-router-dom';
+import "./login.css"
 
 const Login = () => {
     const [credentials, setCredentials] = useState({
@@ -89,11 +90,11 @@ const Login = () => {
                     </div>
                 )}
             </form>
-            <div className="mt-3 text-center">
-                <p>Don't have an account? <Link to='/register'>Register here</Link></p>
+            <div className="mt-3 text-center ">
+                <p>Don't have an account? <Link to='/register'> <span className='homeredirect'>Register here</span></Link></p>
             </div>
             <Link to='/' style={{textDecoration:"none"}}>
-                <span>Go to Home Page</span>
+                <span className='homeredirect'>Go to Home Page</span>
             </Link>
         </div>
     );
