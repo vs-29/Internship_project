@@ -73,8 +73,6 @@ export const Calendar = () => {
         return;
       }
       const { access_token, expires_in } = gapi.client.getToken();
-      console.log("New token:", access_token);
-      console.log("Token expires in:", expires_in);
       localStorage.setItem("access_token", access_token);
       localStorage.setItem("expires_in", Date.now() + expires_in * 1000);
       setCalendarState(prevState => ({ ...prevState, authenticated: true }));
@@ -125,13 +123,28 @@ export const Calendar = () => {
     setCalendarState(prevState => ({ ...prevState, eventsContent: output }));
   }
 
-  async function addManualEvent() {
-    const { summary, location, description, start, end, timeZone, attendees } = calendarState;
+  function validateEventDetails() {
+    const { summary, location, description, start, end } = calendarState;
 
-    if (!summary || !location || !description || !start || !end || !timeZone) {
+    if (!summary || !location || !description || !start || !end) {
       alert("Please fill in all details.");
+      return false;
+    }
+
+    if (new Date(start) >= new Date(end)) {
+      alert("End time must be after start time.");
+      return false;
+    }
+
+    return true;
+  }
+
+  async function addManualEvent() {
+    if (!validateEventDetails()) {
       return;
     }
+
+    const { summary, location, description, start, end, timeZone, attendees } = calendarState;
 
     // Ensure token is valid before making the request
     const token = gapi.client.getToken();
@@ -166,13 +179,13 @@ export const Calendar = () => {
       reminders: { useDefault: true },
       guestsCanSeeOtherGuests: true,
       conferenceData: {
-                createRequest: {
-                  requestId: "some-random-string",
-                  conferenceSolutionKey: {
-                    type: "hangoutsMeet",
-                  },
-                },
-              },
+        createRequest: {
+          requestId: "some-random-string",
+          conferenceSolutionKey: {
+            type: "hangoutsMeet",
+          },
+        },
+      },
     };
 
     try {
@@ -181,8 +194,9 @@ export const Calendar = () => {
         calendarId: "primary",
         resource: event,
         sendUpdates: "all",
+        conferenceDataVersion:1,
       });
-       console.log(response);
+
       if (response && response.result && response.result.htmlLink) {
         console.log("Event added successfully:", response.result);
         window.open(response.result.htmlLink, "_blank");
@@ -205,8 +219,6 @@ export const Calendar = () => {
           reject(response.error);
         } else {
           const { access_token, expires_in } = gapi.client.getToken();
-          console.log("Refreshed token:", access_token);
-          console.log("New token expires in:", expires_in);
           localStorage.setItem("access_token", access_token);
           localStorage.setItem("expires_in", Date.now() + expires_in * 1000);
           resolve();
@@ -348,4 +360,3 @@ export const Calendar = () => {
 };
 
 export default Calendar;
-
