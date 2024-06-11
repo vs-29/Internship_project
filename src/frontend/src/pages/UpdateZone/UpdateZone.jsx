@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import axiosInstance from '../../hooks/api';
 import './updatezone.css'
 import { AuthContext } from '../../context/AuthContext';
-
+import { Link } from 'react-router-dom';
 
 const UpdateZone = () => {
   const [timeZone,setTimeZone]=useState([]);
@@ -127,6 +127,9 @@ const UpdateZone = () => {
         </form>
        )}
        </div>
+       <Link to='/admin' style={{textDecoration:"none"}}>
+                <span className='homeredirect'>Go to Home Page</span>
+       </Link>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../hooks/api';
 import './custom_time.css';
+import { Link } from 'react-router-dom';
 
 function Custom_time() {
   const [timeZones, setTimeZones] = useState([]);
@@ -134,6 +135,9 @@ function Custom_time() {
           </div>
         )}
       </div>
+      <Link to='/' style={{textDecoration:"none"}}>
+                <span className='homeredirect'>Go to Home Page</span>
+      </Link>
     </div>
   );
   

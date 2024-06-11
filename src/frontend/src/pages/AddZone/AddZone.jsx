@@ -3,6 +3,7 @@ import axiosInstance from '../../hooks/api'
 import { useNavigate } from 'react-router-dom';
 import './addzone.css';
 import { AuthContext } from '../../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 const AddZone = () => {
     const [data,setData]=useState({
@@ -110,6 +111,9 @@ const AddZone = () => {
             <button type="submit" className="btn btn-primary col-sm-7"  onClick={HandleClick} >Submit</button>
             </div>
         </form>
+        <Link to='/admin' style={{textDecoration:"none"}}>
+                <span className='homeredirect'>Go to Home Page</span>
+        </Link>
     </div>
   )
 }

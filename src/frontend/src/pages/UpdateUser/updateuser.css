@@ -1,13 +1,12 @@
  .user-update-container{
-    width:80vh;
     margin:20vh auto;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); 
-    padding:5rem 10rem;
+    padding:5rem 7rem;
     background-color:white;
    
 }
 .user_update{
-    width:100%;
+    width:50vh;
     justify-content: center;
     align-items: center;
     padding:4rem;

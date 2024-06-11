@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../hooks/api';
 import './user-table.css'; 
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const User = () => {
   const [users, setUsers] = useState([{}]);
@@ -73,6 +74,9 @@ const User = () => {
           ))}
         </tbody>
       </table>
+      <Link to='/admin' style={{textDecoration:"none"}}>
+                <span className='homeredirect'>Go to Home Page</span>
+      </Link>
     </div>
   );
 };

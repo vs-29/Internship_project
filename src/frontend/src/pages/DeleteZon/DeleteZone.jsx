@@ -3,6 +3,7 @@ import axiosInstance from '../../hooks/api';
 import { useNavigate } from 'react-router-dom';
 import "./deletezone.css"
 import { AuthContext } from '../../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 const DeleteZone = () => {
     const [timeZone,setTimeZone]=useState([]);
@@ -68,6 +69,9 @@ const DeleteZone = () => {
         </ul> 
         <button className="btn btn-danger deleted" onClick={HandleDelete}>Delete</button>
       </div>  
+      <Link to='/admin' style={{textDecoration:"none"}}>
+                <span className='homeredirect'>Go to Home Page</span>
+      </Link>
     </div>
   )
 }
