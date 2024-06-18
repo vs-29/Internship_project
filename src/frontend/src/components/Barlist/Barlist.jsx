@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useRef} from 'react'
+import React,{useState,useEffect} from 'react'
 import Bar from '../Bar/Bar'
 import "./barlist.css"
 
@@ -21,7 +21,7 @@ function Barlist({timezone,selectedDate,selectedZone}) {
   const [selectedHour, setSelectedHour] = useState(null);
 
 
-  const barlistRef = useRef(null);
+ 
 
   const calculateTimeline = (timeZone, referenceOffsetHours) => {
    
@@ -79,7 +79,7 @@ function Barlist({timezone,selectedDate,selectedZone}) {
           const timelines= await Promise.all(reorder.map((tz)=>{
              return calculateTimeline(tz,referenceoffset);
           }))
-          console.log(timelines.localDates);
+          // console.log(timelines.localDates);
           setTimeline(timelines);
         
         }else{
@@ -115,14 +115,14 @@ function Barlist({timezone,selectedDate,selectedZone}) {
 
 
   const handleHourClick = (hour,event) => {
-    console.log(event);
+    // console.log(event);
     setSelectedHour(hour);
   };
  
 
 
   return (
-   <div className="barlist-container" style={{marginTop:"20px"}} ref={barlistRef}> 
+   <div className="barlist-container" style={{marginTop:"20px"}} > 
       {ReorderedZone.map((tz, index) => (
         <div key={tz._id}>
           <Bar timezone={tz} localTimes={Timeline[index].localTimes} localDates={Timeline[index].localDates} selectedZone={selectedZone}  selectedHour={selectedHour} onHourClick={handleHourClick}/>

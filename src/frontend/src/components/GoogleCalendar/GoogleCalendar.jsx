@@ -27,7 +27,8 @@ export const Calendar = () => {
   const accessToken = localStorage.getItem("access_token");
   const expiresIn = localStorage.getItem("expires_in");
 
-  let gapiInited = false, gisInited = false, tokenClient;
+  let 
+  gapiInited = false, gisInited = false, tokenClient;
 
   useEffect(() => {
     gapiLoaded();
@@ -66,6 +67,7 @@ export const Calendar = () => {
   }
 
   function handleAuthClick() {
+    
     tokenClient.callback = async (resp) => {
       if (resp.error) {
         console.error("Authorization error", resp);
@@ -92,7 +94,24 @@ export const Calendar = () => {
     }
     window.location.reload();
   }
-
+  async function checkAvailability(start, end) {
+    try {
+      const request = {
+        resource: {
+          timeMin: new Date(start).toISOString(),
+          timeMax: new Date(end).toISOString(),
+          items: [{ id: 'primary' }]
+        }
+      };
+      const response = await gapi.client.calendar.freebusy.query(request);
+      const busyTimes = response.result.calendars.primary.busy;
+      return busyTimes.length === 0;
+    } catch (error) {
+      console.error("Error checking availability:", error);
+      return false;
+    }
+  }
+  
   async function listUpcomingEvents() {
     let response;
     try {
@@ -130,7 +149,8 @@ export const Calendar = () => {
       alert("Please fill in all details.");
       return false;
     }
-
+    console.log(start);
+    console.log(end);
     if (new Date(start) >= new Date(end)) {
       alert("End time must be after start time.");
       return false;
@@ -140,11 +160,13 @@ export const Calendar = () => {
   }
 
   async function addManualEvent() {
+  
     if (!validateEventDetails()) {
       return;
     }
 
     const { summary, location, description, start, end, timeZone, attendees } = calendarState;
+
 
     // Ensure token is valid before making the request
     const token = gapi.client.getToken();
@@ -160,8 +182,18 @@ export const Calendar = () => {
       }
     }
 
+
+    
     const startUTC = new Date(start).toISOString();
     const endUTC = new Date(end).toISOString();
+    
+    const isAvailable = await checkAvailability(startUTC, endUTC);
+    if (!isAvailable) {
+      alert("Meeting Conflict!!");
+      return;
+    }
+   
+
 
     const event = {
       summary,
@@ -240,7 +272,6 @@ export const Calendar = () => {
   };
 
   const { authenticated, eventsContent, summary, location, description, start, end, timeZone, attendeeEmail, attendees } = calendarState;
-
   return (
     <div>
       {!authenticated && (
@@ -311,15 +342,6 @@ export const Calendar = () => {
                       onChange={(e) => setCalendarState(prevState => ({ ...prevState, end: e.target.value }))}
                     />
                   </div>
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Time Zone:</label>
-                  <input
-                    className="form-control"
-                    type="text"
-                    value={timeZone}
-                    disabled
-                  />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="attendeeEmail" className="form-label">Attendee Email:</label>
